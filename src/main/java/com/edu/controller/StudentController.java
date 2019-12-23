@@ -11,6 +11,6 @@ public class StudentController {
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     @ResponseBody
     public String toDefault(){
-        return "还没写";
+        return "还没写！";
     }
 }
