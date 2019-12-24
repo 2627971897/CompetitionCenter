@@ -1,9 +1,9 @@
 package com.edu.service;
 
 import com.edu.po.StudentCustom;
-import com.edu.po.StudentQueryVo;
+import com.edu.potemp.LoginTemp;
 
 public interface StudentService {
 
-    StudentCustom getStudentCById(StudentQueryVo studentQueryVo);
+    StudentCustom getStudentCByIdPwd(LoginTemp loginTemp);
 }

@@ -20,8 +20,14 @@ public class HelloController {
     }
 
     @RequestMapping("/chooseLogin")
-    public String chooseLogin(StudentQueryVo studentQueryVo){
-        return "forward:sLogin";
+    public String chooseLogin(String chooseTerrace){
+        if ("teacher".equals(chooseTerrace)){
+            return "forward:tLogin";
+        }
+        else if ("student".equals(chooseTerrace)){
+            return "forward:sLogin";
+        }
+        return "login";
     }
 
 }

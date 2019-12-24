@@ -12,8 +12,10 @@
 </head>
 <body>
 <form method="get" action="${pageContext.request.contextPath}/chooseLogin">
-    学号：<input type="text" name="studentCustom.studentId" /><br>
-    密码：<input type="password" name="studentCustom.studentPwd"><br>
+    <input type="radio" name="chooseTerrace" value="student" checked/>学生端
+    <input type="radio" name="chooseTerrace" value="teacher" />教师端<br>
+    学号：<input type="text" name="loginId" /><br>
+    密码：<input type="password" name="loginPwd"><br>
     <input type="submit" value="登录">
 </form>
 </body>

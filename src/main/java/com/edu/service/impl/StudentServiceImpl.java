@@ -4,7 +4,7 @@ import com.edu.mapper.StudentMapper;
 import com.edu.po.Student;
 import com.edu.po.StudentCustom;
 import com.edu.po.StudentExample;
-import com.edu.po.StudentQueryVo;
+import com.edu.potemp.LoginTemp;
 import com.edu.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,13 +20,13 @@ public class StudentServiceImpl implements StudentService {
     private StudentMapper studentMapper;
 
     @Override
-    public StudentCustom getStudentCById(StudentQueryVo studentQueryVo) {
+    public StudentCustom getStudentCByIdPwd(LoginTemp loginTemp) {
         // studentCustom作为返回结果
         StudentCustom studentCustom = new StudentCustom();
         StudentExample studentExample = new StudentExample();
         StudentExample.Criteria criteria = studentExample.createCriteria();
-        criteria.andStudentIdEqualTo(studentQueryVo.getStudentCustom().getStudentId());
-        criteria.andStudentPwdEqualTo(studentQueryVo.getStudentCustom().getStudentPwd());
+        criteria.andStudentIdEqualTo(loginTemp.getLoginId());
+        criteria.andStudentPwdEqualTo(loginTemp.getLoginPwd());
         List<Student> studentList = studentMapper.selectByExample(studentExample);
         if (studentList.size() <= 0){
             System.out.println("SutdengServiceImpl:用户名或密码输入错误");

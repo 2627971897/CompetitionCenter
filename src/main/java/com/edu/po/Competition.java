@@ -1,5 +1,8 @@
 package com.edu.po;
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Competition {
