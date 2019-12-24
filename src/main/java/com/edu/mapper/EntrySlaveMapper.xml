@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.mapper.EntrySlaveMapper">
+  <resultMap id="BaseResultMap" type="com.edu.po.EntrySlave">
+    <id column="ENTRY_SLAVE_ID" jdbcType="INTEGER" property="entrySlaveId" />
+    <result column="ENTRY_ID" jdbcType="INTEGER" property="entryId" />
+    <result column="STUDENT_ID" jdbcType="VARCHAR" property="studentId" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ENTRY_SLAVE_ID, ENTRY_ID, STUDENT_ID, PHONE
+  </sql>
+  <select id="selectByExample" parameterType="com.edu.po.EntrySlaveExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from entry_slave
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from entry_slave
+    where ENTRY_SLAVE_ID = #{entrySlaveId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from entry_slave
+    where ENTRY_SLAVE_ID = #{entrySlaveId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.edu.po.EntrySlaveExample">
+    delete from entry_slave
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.edu.po.EntrySlave">
+    insert into entry_slave (ENTRY_SLAVE_ID, ENTRY_ID, STUDENT_ID, 
+      PHONE)
+    values (#{entrySlaveId,jdbcType=INTEGER}, #{entryId,jdbcType=INTEGER}, #{studentId,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.po.EntrySlave">
+    insert into entry_slave
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="entrySlaveId != null">
+        ENTRY_SLAVE_ID,
+      </if>
+      <if test="entryId != null">
+        ENTRY_ID,
+      </if>
+      <if test="studentId != null">
+        STUDENT_ID,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="entrySlaveId != null">
+        #{entrySlaveId,jdbcType=INTEGER},
+      </if>
+      <if test="entryId != null">
+        #{entryId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.edu.po.EntrySlaveExample" resultType="java.lang.Long">
+    select count(*) from entry_slave
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update entry_slave
+    <set>
+      <if test="record.entrySlaveId != null">
+        ENTRY_SLAVE_ID = #{record.entrySlaveId,jdbcType=INTEGER},
+      </if>
+      <if test="record.entryId != null">
+        ENTRY_ID = #{record.entryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentId != null">
+        STUDENT_ID = #{record.studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        PHONE = #{record.phone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update entry_slave
+    set ENTRY_SLAVE_ID = #{record.entrySlaveId,jdbcType=INTEGER},
+      ENTRY_ID = #{record.entryId,jdbcType=INTEGER},
+      STUDENT_ID = #{record.studentId,jdbcType=VARCHAR},
+      PHONE = #{record.phone,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.po.EntrySlave">
+    update entry_slave
+    <set>
+      <if test="entryId != null">
+        ENTRY_ID = #{entryId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null">
+        STUDENT_ID = #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ENTRY_SLAVE_ID = #{entrySlaveId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.po.EntrySlave">
+    update entry_slave
+    set ENTRY_ID = #{entryId,jdbcType=INTEGER},
+      STUDENT_ID = #{studentId,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR}
+    where ENTRY_SLAVE_ID = #{entrySlaveId,jdbcType=INTEGER}
+  </update>
+</mapper>

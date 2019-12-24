@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.mapper.EntryExtendMapper">
+  <resultMap id="BaseResultMap" type="com.edu.po.EntryExtend">
+    <id column="ENTRY_EXTEND_ID" jdbcType="INTEGER" property="entryExtendId" />
+    <result column="ENTRY_ID" jdbcType="INTEGER" property="entryId" />
+    <result column="COMP_EXTEND_ID" jdbcType="INTEGER" property="compExtendId" />
+    <result column="EXTEND_VALUE" jdbcType="VARCHAR" property="extendValue" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ENTRY_EXTEND_ID, ENTRY_ID, COMP_EXTEND_ID, EXTEND_VALUE
+  </sql>
+  <select id="selectByExample" parameterType="com.edu.po.EntryExtendExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from entry_extend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from entry_extend
+    where ENTRY_EXTEND_ID = #{entryExtendId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from entry_extend
+    where ENTRY_EXTEND_ID = #{entryExtendId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.edu.po.EntryExtendExample">
+    delete from entry_extend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.edu.po.EntryExtend">
+    insert into entry_extend (ENTRY_EXTEND_ID, ENTRY_ID, COMP_EXTEND_ID, 
+      EXTEND_VALUE)
+    values (#{entryExtendId,jdbcType=INTEGER}, #{entryId,jdbcType=INTEGER}, #{compExtendId,jdbcType=INTEGER}, 
+      #{extendValue,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.po.EntryExtend">
+    insert into entry_extend
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="entryExtendId != null">
+        ENTRY_EXTEND_ID,
+      </if>
+      <if test="entryId != null">
+        ENTRY_ID,
+      </if>
+      <if test="compExtendId != null">
+        COMP_EXTEND_ID,
+      </if>
+      <if test="extendValue != null">
+        EXTEND_VALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="entryExtendId != null">
+        #{entryExtendId,jdbcType=INTEGER},
+      </if>
+      <if test="entryId != null">
+        #{entryId,jdbcType=INTEGER},
+      </if>
+      <if test="compExtendId != null">
+        #{compExtendId,jdbcType=INTEGER},
+      </if>
+      <if test="extendValue != null">
+        #{extendValue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.edu.po.EntryExtendExample" resultType="java.lang.Long">
+    select count(*) from entry_extend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update entry_extend
+    <set>
+      <if test="record.entryExtendId != null">
+        ENTRY_EXTEND_ID = #{record.entryExtendId,jdbcType=INTEGER},
+      </if>
+      <if test="record.entryId != null">
+        ENTRY_ID = #{record.entryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.compExtendId != null">
+        COMP_EXTEND_ID = #{record.compExtendId,jdbcType=INTEGER},
+      </if>
+      <if test="record.extendValue != null">
+        EXTEND_VALUE = #{record.extendValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update entry_extend
+    set ENTRY_EXTEND_ID = #{record.entryExtendId,jdbcType=INTEGER},
+      ENTRY_ID = #{record.entryId,jdbcType=INTEGER},
+      COMP_EXTEND_ID = #{record.compExtendId,jdbcType=INTEGER},
+      EXTEND_VALUE = #{record.extendValue,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.po.EntryExtend">
+    update entry_extend
+    <set>
+      <if test="entryId != null">
+        ENTRY_ID = #{entryId,jdbcType=INTEGER},
+      </if>
+      <if test="compExtendId != null">
+        COMP_EXTEND_ID = #{compExtendId,jdbcType=INTEGER},
+      </if>
+      <if test="extendValue != null">
+        EXTEND_VALUE = #{extendValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ENTRY_EXTEND_ID = #{entryExtendId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.po.EntryExtend">
+    update entry_extend
+    set ENTRY_ID = #{entryId,jdbcType=INTEGER},
+      COMP_EXTEND_ID = #{compExtendId,jdbcType=INTEGER},
+      EXTEND_VALUE = #{extendValue,jdbcType=VARCHAR}
+    where ENTRY_EXTEND_ID = #{entryExtendId,jdbcType=INTEGER}
+  </update>
+</mapper>

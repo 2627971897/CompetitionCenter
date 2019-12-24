@@ -8,12 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>index</title>
+    <title>login</title>
 </head>
 <body>
-<form method="get" action="${pageContext.request.contextPath}/login">
-    学号：<input type="text" name="student_id" /><br>
-    密码：<input type="password" name="student_pwd"><br>
+<form method="get" action="${pageContext.request.contextPath}/chooseLogin">
+    学号：<input type="text" name="studentCustom.studentId" /><br>
+    密码：<input type="password" name="studentCustom.studentPwd"><br>
     <input type="submit" value="登录">
 </form>
 </body>

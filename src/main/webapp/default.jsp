@@ -9,6 +9,6 @@
 <body>
 </body>
 <script type="text/javascript">
-    window.location.href = "${pageContext.request.contextPath}/toIndex";
+    window.location.href = "${pageContext.request.contextPath}/toLogin";
 </script>
 </html>

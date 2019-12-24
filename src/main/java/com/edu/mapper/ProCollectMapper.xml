@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.mapper.ProCollectMapper">
+  <resultMap id="BaseResultMap" type="com.edu.po.ProCollect">
+    <id column="PRO_COL_ID" jdbcType="INTEGER" property="proColId" />
+    <result column="ENTRY_ID" jdbcType="INTEGER" property="entryId" />
+    <result column="PRO_NAME" jdbcType="VARCHAR" property="proName" />
+    <result column="PRO_LINK" jdbcType="VARCHAR" property="proLink" />
+    <result column="PRO_COL_TIME" jdbcType="TIMESTAMP" property="proColTime" />
+    <result column="IS_DEL" jdbcType="VARCHAR" property="isDel" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    PRO_COL_ID, ENTRY_ID, PRO_NAME, PRO_LINK, PRO_COL_TIME, IS_DEL
+  </sql>
+  <select id="selectByExample" parameterType="com.edu.po.ProCollectExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pro_collect
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pro_collect
+    where PRO_COL_ID = #{proColId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pro_collect
+    where PRO_COL_ID = #{proColId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.edu.po.ProCollectExample">
+    delete from pro_collect
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.edu.po.ProCollect">
+    insert into pro_collect (PRO_COL_ID, ENTRY_ID, PRO_NAME, 
+      PRO_LINK, PRO_COL_TIME, IS_DEL
+      )
+    values (#{proColId,jdbcType=INTEGER}, #{entryId,jdbcType=INTEGER}, #{proName,jdbcType=VARCHAR}, 
+      #{proLink,jdbcType=VARCHAR}, #{proColTime,jdbcType=TIMESTAMP}, #{isDel,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.po.ProCollect">
+    insert into pro_collect
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="proColId != null">
+        PRO_COL_ID,
+      </if>
+      <if test="entryId != null">
+        ENTRY_ID,
+      </if>
+      <if test="proName != null">
+        PRO_NAME,
+      </if>
+      <if test="proLink != null">
+        PRO_LINK,
+      </if>
+      <if test="proColTime != null">
+        PRO_COL_TIME,
+      </if>
+      <if test="isDel != null">
+        IS_DEL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="proColId != null">
+        #{proColId,jdbcType=INTEGER},
+      </if>
+      <if test="entryId != null">
+        #{entryId,jdbcType=INTEGER},
+      </if>
+      <if test="proName != null">
+        #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="proLink != null">
+        #{proLink,jdbcType=VARCHAR},
+      </if>
+      <if test="proColTime != null">
+        #{proColTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.edu.po.ProCollectExample" resultType="java.lang.Long">
+    select count(*) from pro_collect
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update pro_collect
+    <set>
+      <if test="record.proColId != null">
+        PRO_COL_ID = #{record.proColId,jdbcType=INTEGER},
+      </if>
+      <if test="record.entryId != null">
+        ENTRY_ID = #{record.entryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.proName != null">
+        PRO_NAME = #{record.proName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proLink != null">
+        PRO_LINK = #{record.proLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proColTime != null">
+        PRO_COL_TIME = #{record.proColTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDel != null">
+        IS_DEL = #{record.isDel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update pro_collect
+    set PRO_COL_ID = #{record.proColId,jdbcType=INTEGER},
+      ENTRY_ID = #{record.entryId,jdbcType=INTEGER},
+      PRO_NAME = #{record.proName,jdbcType=VARCHAR},
+      PRO_LINK = #{record.proLink,jdbcType=VARCHAR},
+      PRO_COL_TIME = #{record.proColTime,jdbcType=TIMESTAMP},
+      IS_DEL = #{record.isDel,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.po.ProCollect">
+    update pro_collect
+    <set>
+      <if test="entryId != null">
+        ENTRY_ID = #{entryId,jdbcType=INTEGER},
+      </if>
+      <if test="proName != null">
+        PRO_NAME = #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="proLink != null">
+        PRO_LINK = #{proLink,jdbcType=VARCHAR},
+      </if>
+      <if test="proColTime != null">
+        PRO_COL_TIME = #{proColTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null">
+        IS_DEL = #{isDel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PRO_COL_ID = #{proColId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.po.ProCollect">
+    update pro_collect
+    set ENTRY_ID = #{entryId,jdbcType=INTEGER},
+      PRO_NAME = #{proName,jdbcType=VARCHAR},
+      PRO_LINK = #{proLink,jdbcType=VARCHAR},
+      PRO_COL_TIME = #{proColTime,jdbcType=TIMESTAMP},
+      IS_DEL = #{isDel,jdbcType=VARCHAR}
+    where PRO_COL_ID = #{proColId,jdbcType=INTEGER}
+  </update>
+</mapper>
