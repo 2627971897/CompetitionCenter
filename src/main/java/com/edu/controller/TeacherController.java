@@ -80,4 +80,23 @@ public class TeacherController {
         competitionService.addCompetition(competitionCustom);
         return "teacher/teacherIndex";
     }
+
+    // 去发布报名信息
+    @RequestMapping("/toReleaseCompByCid")
+    public String releaseCompByCid(Integer compId,HttpServletRequest request){
+        CompetitionCustom competitionCustom = competitionService.getCompByCid(compId);
+        request.setAttribute("competition",competitionCustom);
+        return "teacher/releaseComp";
+    }
+    @RequestMapping("/toScoreCompByCid")
+    public String scoreCompByCid(CompetitionCustom competitionCustom){
+        return "teacher/scoreComp";
+    }
+
+    @RequestMapping("/toTCompetitionInfo")
+    public String toTCompetitionInfo(Integer compId,HttpServletRequest request){
+        CompetitionCustom competitionCustom = competitionService.getCompByCid(compId);
+        request.setAttribute("competition",competitionCustom);
+        return "teacher/competitionInfo";
+    }
 }

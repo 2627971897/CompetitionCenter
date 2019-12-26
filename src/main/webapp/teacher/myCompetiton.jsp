@@ -19,13 +19,14 @@
         <th>申请人</th>
         <th>比赛名称</th>
         <th>提交作品</th>
+        <th>参赛性质</th>
         <th>申请时间</th>
         <th>当前状态</th>
     </tr>
     <c:forEach items="${competitionList}" var="competition">
     <tr>
         <td>${competition.compId}</td>
-        <td>${competition.teacherName}</td>
+        <td><a href="${pageContext.request.contextPath}/toTCompetitionInfo?compId=${competition.compId}">${competition.compName}</a></td>
         <td>${competition.compName}</td>
         <c:if test="${competition.isPro=='Y'}">
             <td>提交</td>
@@ -33,23 +34,36 @@
         <c:if test="${competition.isPro=='N'}">
             <td>不提交</td>
         </c:if>
+        <c:if test="${competition.isPer=='1'}">
+            <td>仅个人</td>
+        </c:if>
+        <c:if test="${competition.isPer=='2'}">
+            <td>仅团队</td>
+        </c:if>
+        <c:if test="${competition.isPer=='3'}">
+            <td>都可</td>
+        </c:if>
         <td>${competition.applyTime}</td>
         <c:if test="${competition.compStatus=='1'}">
             <td>待审核</td>
         </c:if>
         <c:if test="${competition.compStatus=='2'}">
-            <td>待发布报名信息</td>
+            <td><a href="${pageContext.request.contextPath}/toReleaseCompByCid?compId=${competition.compId}">待发布报名信息</a></td>
         </c:if>
         <c:if test="${competition.compStatus=='3'}">
             <td>正在报名中...</td>
         </c:if>
         <c:if test="${competition.compStatus=='4'}">
-            <td>报名截止，待录入成绩</td>
+            <td><a href="${pageContext.request.contextPath}/toScoreCompByCid?compId=${competition.compId}">报名截止，待录入成绩</a></td>
         </c:if>
-        <c:if test="${competition.compStatus=='5'}">
+        <c:if test="${competition.compStatus=='9'}">
+            <td>审核未通过</td>
+        </c:if>
+        <c:if test="${competition.compStatus=='0'}">
             <td>已结束</td>
         </c:if>
     </tr>
+    </form>
     </c:forEach>
 </table>
 </body>

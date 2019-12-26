@@ -52,7 +52,7 @@
     </javaClientGenerator>
 
 	<!-- 指定数据库表 -->
-      <table schema="springmvc_db" tableName="competition"/>
+      <!--<table schema="springmvc_db" tableName="competition"/>
       <table schema="springmvc_db" tableName="competition_extend"/>
       <table schema="springmvc_db" tableName="competition_object"/>
       <table schema="springmvc_db" tableName="competition_scope"/>
@@ -62,7 +62,8 @@
       <table schema="springmvc_db" tableName="entry_slave"/>
       <table schema="springmvc_db" tableName="pro_collect"/>
       <table schema="springmvc_db" tableName="student"/>
-      <table schema="springmvc_db" tableName="teacher"/>
+      <table schema="springmvc_db" tableName="teacher"/>-->
+      <table schema="springmvc_db" tableName="competition"/>
 
   </context>
 </generatorConfiguration>

@@ -21,11 +21,15 @@ public class HelloController {
 
     @RequestMapping("/chooseLogin")
     public String chooseLogin(String chooseTerrace){
-        if ("teacher".equals(chooseTerrace)){
+
+        if ("teacher".equals(chooseTerrace)){   // 教师登录
             return "forward:tLogin";
         }
-        else if ("student".equals(chooseTerrace)){
+        else if ("student".equals(chooseTerrace)){  // 学生登录
             return "forward:sLogin";
+        }
+        else if ("school".equals(chooseTerrace)){   // 学校登录
+            return "forward:bLogin";
         }
         return "login";
     }
