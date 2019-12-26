@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.mapper.SchoolMapper">
+  <resultMap id="BaseResultMap" type="com.edu.po.School">
+    <id column="SCHOOL_ID" jdbcType="INTEGER" property="schoolId" />
+    <result column="SCHOOL_ACCOUNT" jdbcType="VARCHAR" property="schoolAccount" />
+    <result column="SCHOOL_PWD" jdbcType="VARCHAR" property="schoolPwd" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SCHOOL_ID, SCHOOL_ACCOUNT, SCHOOL_PWD
+  </sql>
+  <select id="selectByExample" parameterType="com.edu.po.SchoolExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from school
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from school
+    where SCHOOL_ID = #{schoolId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from school
+    where SCHOOL_ID = #{schoolId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.edu.po.SchoolExample">
+    delete from school
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.edu.po.School">
+    insert into school (SCHOOL_ID, SCHOOL_ACCOUNT, SCHOOL_PWD
+      )
+    values (#{schoolId,jdbcType=INTEGER}, #{schoolAccount,jdbcType=VARCHAR}, #{schoolPwd,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.po.School">
+    insert into school
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="schoolId != null">
+        SCHOOL_ID,
+      </if>
+      <if test="schoolAccount != null">
+        SCHOOL_ACCOUNT,
+      </if>
+      <if test="schoolPwd != null">
+        SCHOOL_PWD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="schoolId != null">
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolAccount != null">
+        #{schoolAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolPwd != null">
+        #{schoolPwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.edu.po.SchoolExample" resultType="java.lang.Long">
+    select count(*) from school
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update school
+    <set>
+      <if test="record.schoolId != null">
+        SCHOOL_ID = #{record.schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="record.schoolAccount != null">
+        SCHOOL_ACCOUNT = #{record.schoolAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schoolPwd != null">
+        SCHOOL_PWD = #{record.schoolPwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update school
+    set SCHOOL_ID = #{record.schoolId,jdbcType=INTEGER},
+      SCHOOL_ACCOUNT = #{record.schoolAccount,jdbcType=VARCHAR},
+      SCHOOL_PWD = #{record.schoolPwd,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.po.School">
+    update school
+    <set>
+      <if test="schoolAccount != null">
+        SCHOOL_ACCOUNT = #{schoolAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolPwd != null">
+        SCHOOL_PWD = #{schoolPwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SCHOOL_ID = #{schoolId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.po.School">
+    update school
+    set SCHOOL_ACCOUNT = #{schoolAccount,jdbcType=VARCHAR},
+      SCHOOL_PWD = #{schoolPwd,jdbcType=VARCHAR}
+    where SCHOOL_ID = #{schoolId,jdbcType=INTEGER}
+  </update>
+</mapper>
