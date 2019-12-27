@@ -18,4 +18,6 @@ public interface CompetitionService {
     CompetitionCustom getCompByCid(Integer compId);
 
     void auditNoPassCompByCid(Integer compId);
+
+    void signingCompByCid(Integer compId);
 }

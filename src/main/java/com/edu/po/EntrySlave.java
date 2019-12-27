@@ -9,6 +9,8 @@ public class EntrySlave {
 
     private String phone;
 
+    private String isDel;
+
     public Integer getEntrySlaveId() {
         return entrySlaveId;
     }
@@ -39,5 +41,13 @@ public class EntrySlave {
 
     public void setPhone(String phone) {
         this.phone = phone == null ? null : phone.trim();
+    }
+
+    public String getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(String isDel) {
+        this.isDel = isDel == null ? null : isDel.trim();
     }
 }

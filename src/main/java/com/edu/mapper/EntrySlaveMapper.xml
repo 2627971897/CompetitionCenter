@@ -6,6 +6,7 @@
     <result column="ENTRY_ID" jdbcType="INTEGER" property="entryId" />
     <result column="STUDENT_ID" jdbcType="VARCHAR" property="studentId" />
     <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="IS_DEL" jdbcType="VARCHAR" property="isDel" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ENTRY_SLAVE_ID, ENTRY_ID, STUDENT_ID, PHONE
+    ENTRY_SLAVE_ID, ENTRY_ID, STUDENT_ID, PHONE, IS_DEL
   </sql>
   <select id="selectByExample" parameterType="com.edu.po.EntrySlaveExample" resultMap="BaseResultMap">
     select
@@ -100,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="com.edu.po.EntrySlave">
     insert into entry_slave (ENTRY_SLAVE_ID, ENTRY_ID, STUDENT_ID, 
-      PHONE)
+      PHONE, IS_DEL)
     values (#{entrySlaveId,jdbcType=INTEGER}, #{entryId,jdbcType=INTEGER}, #{studentId,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR})
+      #{phone,jdbcType=VARCHAR}, #{isDel,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.edu.po.EntrySlave">
     insert into entry_slave
@@ -119,6 +120,9 @@
       <if test="phone != null">
         PHONE,
       </if>
+      <if test="isDel != null">
+        IS_DEL,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="entrySlaveId != null">
@@ -132,6 +136,9 @@
       </if>
       <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -156,6 +163,9 @@
       <if test="record.phone != null">
         PHONE = #{record.phone,jdbcType=VARCHAR},
       </if>
+      <if test="record.isDel != null">
+        IS_DEL = #{record.isDel,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +176,8 @@
     set ENTRY_SLAVE_ID = #{record.entrySlaveId,jdbcType=INTEGER},
       ENTRY_ID = #{record.entryId,jdbcType=INTEGER},
       STUDENT_ID = #{record.studentId,jdbcType=VARCHAR},
-      PHONE = #{record.phone,jdbcType=VARCHAR}
+      PHONE = #{record.phone,jdbcType=VARCHAR},
+      IS_DEL = #{record.isDel,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +194,9 @@
       <if test="phone != null">
         PHONE = #{phone,jdbcType=VARCHAR},
       </if>
+      <if test="isDel != null">
+        IS_DEL = #{isDel,jdbcType=VARCHAR},
+      </if>
     </set>
     where ENTRY_SLAVE_ID = #{entrySlaveId,jdbcType=INTEGER}
   </update>
@@ -190,7 +204,8 @@
     update entry_slave
     set ENTRY_ID = #{entryId,jdbcType=INTEGER},
       STUDENT_ID = #{studentId,jdbcType=VARCHAR},
-      PHONE = #{phone,jdbcType=VARCHAR}
+      PHONE = #{phone,jdbcType=VARCHAR},
+      IS_DEL = #{isDel,jdbcType=VARCHAR}
     where ENTRY_SLAVE_ID = #{entrySlaveId,jdbcType=INTEGER}
   </update>
 </mapper>

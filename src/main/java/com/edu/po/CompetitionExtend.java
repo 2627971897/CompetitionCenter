@@ -7,6 +7,8 @@ public class CompetitionExtend {
 
     private String extendKey;
 
+    private String isDel;
+
     public Integer getCompExtendId() {
         return compExtendId;
     }
@@ -29,5 +31,13 @@ public class CompetitionExtend {
 
     public void setExtendKey(String extendKey) {
         this.extendKey = extendKey == null ? null : extendKey.trim();
+    }
+
+    public String getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(String isDel) {
+        this.isDel = isDel == null ? null : isDel.trim();
     }
 }

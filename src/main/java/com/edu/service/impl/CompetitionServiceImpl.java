@@ -2,11 +2,8 @@ package com.edu.service.impl;
 
 import com.edu.mapper.CompetitionMapper;
 import com.edu.mapper.TeacherMapper;
-import com.edu.po.Competition;
-import com.edu.po.CompetitionCustom;
-import com.edu.po.CompetitionExample;
-import com.edu.po.Teacher;
-import com.edu.service.CompetitionService;
+import com.edu.po.*;
+import com.edu.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,11 +16,25 @@ import java.util.List;
 @Transactional
 public class CompetitionServiceImpl implements CompetitionService {
 
+
+
     @Autowired
     private CompetitionMapper competitionMapper;
 
     @Autowired
     private TeacherMapper teacherMapper;
+
+    @Autowired
+    private TeacherService teacherService;
+
+    @Autowired
+    private CompetitionExtService competitionExtService;
+
+    @Autowired
+    private CompetitionObjService competitionObjService;
+
+    @Autowired
+    private CompetitionScopeService competitionScopeService;
 
     // 将Competition类型的list，转换成CompetitionCustom类型的list
     public List<CompetitionCustom> transformToCompetitionCustomList(List<Competition> competitionList) {
@@ -42,8 +53,18 @@ public class CompetitionServiceImpl implements CompetitionService {
             competitionCustom.setCompStatus(competition.getCompStatus());
             competitionCustom.setIsDel(competition.getIsDel());
             competitionCustom.setIsPer(competition.getIsPer());
+
+            competitionCustom.setTeacherName(teacherService.getTeacherCByTid(competition.getTeacherId()).getTeacherName());
+
+            competitionCustom.setCompetitionExtCustomList(competitionExtService.getCompExtByCid(competition.getCompId()));
+
+            competitionCustom.setCompetitionScopeCustomList(competitionScopeService.getCompScopeByCid(competition.getCompId()));
+
+            competitionCustom.setCompetitionObjCustomList(competitionObjService.getCompObjByCid(competition.getCompId()));
+
             competitionCustomList.add(competitionCustom);
         }
+
         return competitionCustomList;
     }
 
@@ -62,6 +83,15 @@ public class CompetitionServiceImpl implements CompetitionService {
         competitionCustom.setCompStatus(competition.getCompStatus());
         competitionCustom.setIsDel(competition.getIsDel());
         competitionCustom.setIsPer(competition.getIsPer());
+
+        competitionCustom.setTeacherName(teacherService.getTeacherCByTid(competition.getTeacherId()).getTeacherName());
+
+        competitionCustom.setCompetitionExtCustomList(competitionExtService.getCompExtByCid(competition.getCompId()));
+
+        competitionCustom.setCompetitionScopeCustomList(competitionScopeService.getCompScopeByCid(competition.getCompId()));
+
+        competitionCustom.setCompetitionObjCustomList(competitionObjService.getCompObjByCid(competition.getCompId()));
+
         return competitionCustom;
     }
 
@@ -79,12 +109,9 @@ public class CompetitionServiceImpl implements CompetitionService {
         CompetitionExample competitionExample = new CompetitionExample();
         CompetitionExample.Criteria criteria = competitionExample.createCriteria();
         criteria.andTeacherIdEqualTo(teacherId);
+        criteria.andIsDelEqualTo("N");
         List<Competition> competitionList = competitionMapper.selectByExample(competitionExample);
         List<CompetitionCustom> competitionCustomList = transformToCompetitionCustomList(competitionList);
-        for (CompetitionCustom competitionCustom : competitionCustomList) {
-            Teacher teacher = teacherMapper.selectByPrimaryKey(competitionCustom.getTeacherId());
-            competitionCustom.setTeacherName(teacher.getTeacherName());
-        }
         return competitionCustomList;
     }
 
@@ -92,12 +119,10 @@ public class CompetitionServiceImpl implements CompetitionService {
     @Override
     public List<CompetitionCustom> getCompAll() {
         CompetitionExample competitionExample = new CompetitionExample();
+        CompetitionExample.Criteria criteria = competitionExample.createCriteria();
+        criteria.andIsDelEqualTo("N");
         List<Competition> competitionList = competitionMapper.selectByExample(competitionExample);
         List<CompetitionCustom> competitionCustomList = transformToCompetitionCustomList(competitionList);
-        for (CompetitionCustom competitionCustom : competitionCustomList) {
-            Teacher teacher = teacherMapper.selectByPrimaryKey(competitionCustom.getTeacherId());
-            competitionCustom.setTeacherName(teacher.getTeacherName());
-        }
         return competitionCustomList;
     }
 
@@ -107,12 +132,9 @@ public class CompetitionServiceImpl implements CompetitionService {
         CompetitionExample competitionExample = new CompetitionExample();
         CompetitionExample.Criteria criteria = competitionExample.createCriteria();
         criteria.andCompStatusEqualTo(compStatus);
+        criteria.andIsDelEqualTo("N");
         List<Competition> competitionList = competitionMapper.selectByExample(competitionExample);
         List<CompetitionCustom> competitionCustomList = transformToCompetitionCustomList(competitionList);
-        for (CompetitionCustom competitionCustom : competitionCustomList) {
-            Teacher teacher = teacherMapper.selectByPrimaryKey(competitionCustom.getTeacherId());
-            competitionCustom.setTeacherName(teacher.getTeacherName());
-        }
         return competitionCustomList;
     }
 
@@ -130,8 +152,6 @@ public class CompetitionServiceImpl implements CompetitionService {
     public CompetitionCustom getCompByCid(Integer compId) {
         Competition competition = competitionMapper.selectByPrimaryKey(compId);
         CompetitionCustom competitionCustom = transformToCompetitionCustom(competition);
-        Teacher teacher = teacherMapper.selectByPrimaryKey(competitionCustom.getTeacherId());
-        competitionCustom.setTeacherName(teacher.getTeacherName());
         return competitionCustom;
     }
 
@@ -144,5 +164,12 @@ public class CompetitionServiceImpl implements CompetitionService {
         competitionMapper.updateByPrimaryKeySelective(competition);
     }
 
-
+    // 根据CompId比赛状态改为正在报名中
+    @Override
+    public void signingCompByCid(Integer compId) {
+        Competition competition = new Competition();
+        competition.setCompId(compId);
+        competition.setCompStatus("3");
+        competitionMapper.updateByPrimaryKeySelective(competition);
+    }
 }

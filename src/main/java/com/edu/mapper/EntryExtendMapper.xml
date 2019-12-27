@@ -6,6 +6,7 @@
     <result column="ENTRY_ID" jdbcType="INTEGER" property="entryId" />
     <result column="COMP_EXTEND_ID" jdbcType="INTEGER" property="compExtendId" />
     <result column="EXTEND_VALUE" jdbcType="VARCHAR" property="extendValue" />
+    <result column="IS_DEL" jdbcType="VARCHAR" property="isDel" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ENTRY_EXTEND_ID, ENTRY_ID, COMP_EXTEND_ID, EXTEND_VALUE
+    ENTRY_EXTEND_ID, ENTRY_ID, COMP_EXTEND_ID, EXTEND_VALUE, IS_DEL
   </sql>
   <select id="selectByExample" parameterType="com.edu.po.EntryExtendExample" resultMap="BaseResultMap">
     select
@@ -100,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="com.edu.po.EntryExtend">
     insert into entry_extend (ENTRY_EXTEND_ID, ENTRY_ID, COMP_EXTEND_ID, 
-      EXTEND_VALUE)
+      EXTEND_VALUE, IS_DEL)
     values (#{entryExtendId,jdbcType=INTEGER}, #{entryId,jdbcType=INTEGER}, #{compExtendId,jdbcType=INTEGER}, 
-      #{extendValue,jdbcType=VARCHAR})
+      #{extendValue,jdbcType=VARCHAR}, #{isDel,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.edu.po.EntryExtend">
     insert into entry_extend
@@ -119,6 +120,9 @@
       <if test="extendValue != null">
         EXTEND_VALUE,
       </if>
+      <if test="isDel != null">
+        IS_DEL,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="entryExtendId != null">
@@ -132,6 +136,9 @@
       </if>
       <if test="extendValue != null">
         #{extendValue,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -156,6 +163,9 @@
       <if test="record.extendValue != null">
         EXTEND_VALUE = #{record.extendValue,jdbcType=VARCHAR},
       </if>
+      <if test="record.isDel != null">
+        IS_DEL = #{record.isDel,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +176,8 @@
     set ENTRY_EXTEND_ID = #{record.entryExtendId,jdbcType=INTEGER},
       ENTRY_ID = #{record.entryId,jdbcType=INTEGER},
       COMP_EXTEND_ID = #{record.compExtendId,jdbcType=INTEGER},
-      EXTEND_VALUE = #{record.extendValue,jdbcType=VARCHAR}
+      EXTEND_VALUE = #{record.extendValue,jdbcType=VARCHAR},
+      IS_DEL = #{record.isDel,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +194,9 @@
       <if test="extendValue != null">
         EXTEND_VALUE = #{extendValue,jdbcType=VARCHAR},
       </if>
+      <if test="isDel != null">
+        IS_DEL = #{isDel,jdbcType=VARCHAR},
+      </if>
     </set>
     where ENTRY_EXTEND_ID = #{entryExtendId,jdbcType=INTEGER}
   </update>
@@ -190,7 +204,8 @@
     update entry_extend
     set ENTRY_ID = #{entryId,jdbcType=INTEGER},
       COMP_EXTEND_ID = #{compExtendId,jdbcType=INTEGER},
-      EXTEND_VALUE = #{extendValue,jdbcType=VARCHAR}
+      EXTEND_VALUE = #{extendValue,jdbcType=VARCHAR},
+      IS_DEL = #{isDel,jdbcType=VARCHAR}
     where ENTRY_EXTEND_ID = #{entryExtendId,jdbcType=INTEGER}
   </update>
 </mapper>

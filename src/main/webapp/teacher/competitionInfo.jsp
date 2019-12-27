@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%--
   Created by IntelliJ IDEA.
   User: ASUS
@@ -33,9 +34,9 @@
 <c:if test="${competition.isPer=='3'}">
     都可
 </c:if><br>
-申请时间：${competition.applyTime}<br>
-报名开始时间：${competition.beginTime}<br>
-截止报名时间：${competition.endTime}<br>
+申请时间：<fmt:formatDate pattern="yyyy-MM-dd HH:mm:SS" value="${competition.applyTime}" /><br>
+报名开始时间：<fmt:formatDate pattern="yyyy-MM-dd" value="${competition.beginTime}" /><br>
+截止报名时间：<fmt:formatDate pattern="yyyy-MM-dd" value="${competition.endTime}" /><br>
 比赛状态：
 <c:if test="${competition.compStatus=='1'}">
     待审核
@@ -55,5 +56,41 @@
 <c:if test="${competition.compStatus=='0'}">
     已结束
 </c:if><br>
+<c:if test="${competition.compStatus=='0'}">
+    已结束
+</c:if>
+<c:if test="${not empty competition.competitionScopeCustomList}">
+    年级范围：
+    <c:forEach items="${competition.competitionScopeCustomList}" var="competitionScope">
+        <c:if test="${competitionScope.value=='9'}">
+            全年级
+        </c:if>
+        <c:if test="${competitionScope.value=='1'}">
+            大一
+        </c:if>
+        <c:if test="${competitionScope.value=='2'}">
+            大二
+        </c:if>
+        <c:if test="${competitionScope.value=='3'}">
+            大三
+        </c:if>
+        <c:if test="${competitionScope.value=='4'}">
+            大四
+        </c:if>
+    </c:forEach><br>
+</c:if>
+<c:if test="${not empty competition.competitionObjCustomList}">
+    学院范围：
+    <c:forEach items="${competition.competitionObjCustomList}" var="competitionObjCustom">
+        ${competitionObjCustom.deptName}
+    </c:forEach><br>
+</c:if>
+<c:if test="${not empty competition.competitionExtCustomList}">
+    拓展信息：
+    <c:forEach items="${competition.competitionExtCustomList}" var="competitionExtCustom">
+        ${competitionExtCustom.extendKey}
+    </c:forEach><br>
+</c:if>
+
 </body>
 </html>

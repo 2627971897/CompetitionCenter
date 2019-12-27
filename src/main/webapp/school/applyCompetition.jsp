@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%--
   Created by IntelliJ IDEA.
   User: ASUS
@@ -45,7 +46,7 @@
             <c:if test="${competition.isPer=='3'}">
                 <td>都可</td>
             </c:if>
-            <td>${competition.applyTime}</td>
+            <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:SS" value="${competition.applyTime}" /></td>
             <c:if test="${competition.compStatus=='1'}">
                 <td>待审核</td>
             </c:if>

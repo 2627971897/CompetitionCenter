@@ -5,6 +5,7 @@
     <id column="COMP_EXTEND_ID" jdbcType="INTEGER" property="compExtendId" />
     <result column="COMP_ID" jdbcType="INTEGER" property="compId" />
     <result column="EXTEND_KEY" jdbcType="VARCHAR" property="extendKey" />
+    <result column="IS_DEL" jdbcType="VARCHAR" property="isDel" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    COMP_EXTEND_ID, COMP_ID, EXTEND_KEY
+    COMP_EXTEND_ID, COMP_ID, EXTEND_KEY, IS_DEL
   </sql>
   <select id="selectByExample" parameterType="com.edu.po.CompetitionExtendExample" resultMap="BaseResultMap">
     select
@@ -98,10 +99,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.edu.po.CompetitionExtend">
-    insert into competition_extend (COMP_EXTEND_ID, COMP_ID, EXTEND_KEY
-      )
-    values (#{compExtendId,jdbcType=INTEGER}, #{compId,jdbcType=INTEGER}, #{extendKey,jdbcType=VARCHAR}
-      )
+    insert into competition_extend (COMP_EXTEND_ID, COMP_ID, EXTEND_KEY, 
+      IS_DEL)
+    values (#{compExtendId,jdbcType=INTEGER}, #{compId,jdbcType=INTEGER}, #{extendKey,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.edu.po.CompetitionExtend">
     insert into competition_extend
@@ -115,6 +116,9 @@
       <if test="extendKey != null">
         EXTEND_KEY,
       </if>
+      <if test="isDel != null">
+        IS_DEL,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="compExtendId != null">
@@ -125,6 +129,9 @@
       </if>
       <if test="extendKey != null">
         #{extendKey,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -146,6 +153,9 @@
       <if test="record.extendKey != null">
         EXTEND_KEY = #{record.extendKey,jdbcType=VARCHAR},
       </if>
+      <if test="record.isDel != null">
+        IS_DEL = #{record.isDel,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -155,7 +165,8 @@
     update competition_extend
     set COMP_EXTEND_ID = #{record.compExtendId,jdbcType=INTEGER},
       COMP_ID = #{record.compId,jdbcType=INTEGER},
-      EXTEND_KEY = #{record.extendKey,jdbcType=VARCHAR}
+      EXTEND_KEY = #{record.extendKey,jdbcType=VARCHAR},
+      IS_DEL = #{record.isDel,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -169,13 +180,17 @@
       <if test="extendKey != null">
         EXTEND_KEY = #{extendKey,jdbcType=VARCHAR},
       </if>
+      <if test="isDel != null">
+        IS_DEL = #{isDel,jdbcType=VARCHAR},
+      </if>
     </set>
     where COMP_EXTEND_ID = #{compExtendId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.edu.po.CompetitionExtend">
     update competition_extend
     set COMP_ID = #{compId,jdbcType=INTEGER},
-      EXTEND_KEY = #{extendKey,jdbcType=VARCHAR}
+      EXTEND_KEY = #{extendKey,jdbcType=VARCHAR},
+      IS_DEL = #{isDel,jdbcType=VARCHAR}
     where COMP_EXTEND_ID = #{compExtendId,jdbcType=INTEGER}
   </update>
 </mapper>

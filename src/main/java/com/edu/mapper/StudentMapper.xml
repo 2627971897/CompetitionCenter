@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.edu.po.Student">
     <id column="STUDENT_ID" jdbcType="VARCHAR" property="studentId" />
     <result column="STUDENT_NAME" jdbcType="VARCHAR" property="studentName" />
-    <result column="STUDENT_DEPT" jdbcType="VARCHAR" property="studentDept" />
+    <result column="DEPT_ID" jdbcType="INTEGER" property="deptId" />
     <result column="STUDENT_MAJOR" jdbcType="VARCHAR" property="studentMajor" />
     <result column="STUDENT_GRADE" jdbcType="VARCHAR" property="studentGrade" />
     <result column="STUDENT_CLASS" jdbcType="VARCHAR" property="studentClass" />
@@ -69,8 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    STUDENT_ID, STUDENT_NAME, STUDENT_DEPT, STUDENT_MAJOR, STUDENT_GRADE, STUDENT_CLASS, 
-    STUDENT_PWD
+    STUDENT_ID, STUDENT_NAME, DEPT_ID, STUDENT_MAJOR, STUDENT_GRADE, STUDENT_CLASS, STUDENT_PWD
   </sql>
   <select id="selectByExample" parameterType="com.edu.po.StudentExample" resultMap="BaseResultMap">
     select
@@ -103,10 +102,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.edu.po.Student">
-    insert into student (STUDENT_ID, STUDENT_NAME, STUDENT_DEPT, 
+    insert into student (STUDENT_ID, STUDENT_NAME, DEPT_ID, 
       STUDENT_MAJOR, STUDENT_GRADE, STUDENT_CLASS, 
       STUDENT_PWD)
-    values (#{studentId,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, #{studentDept,jdbcType=VARCHAR}, 
+    values (#{studentId,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
       #{studentMajor,jdbcType=VARCHAR}, #{studentGrade,jdbcType=VARCHAR}, #{studentClass,jdbcType=VARCHAR}, 
       #{studentPwd,jdbcType=VARCHAR})
   </insert>
@@ -119,8 +118,8 @@
       <if test="studentName != null">
         STUDENT_NAME,
       </if>
-      <if test="studentDept != null">
-        STUDENT_DEPT,
+      <if test="deptId != null">
+        DEPT_ID,
       </if>
       <if test="studentMajor != null">
         STUDENT_MAJOR,
@@ -142,8 +141,8 @@
       <if test="studentName != null">
         #{studentName,jdbcType=VARCHAR},
       </if>
-      <if test="studentDept != null">
-        #{studentDept,jdbcType=VARCHAR},
+      <if test="deptId != null">
+        #{deptId,jdbcType=INTEGER},
       </if>
       <if test="studentMajor != null">
         #{studentMajor,jdbcType=VARCHAR},
@@ -174,8 +173,8 @@
       <if test="record.studentName != null">
         STUDENT_NAME = #{record.studentName,jdbcType=VARCHAR},
       </if>
-      <if test="record.studentDept != null">
-        STUDENT_DEPT = #{record.studentDept,jdbcType=VARCHAR},
+      <if test="record.deptId != null">
+        DEPT_ID = #{record.deptId,jdbcType=INTEGER},
       </if>
       <if test="record.studentMajor != null">
         STUDENT_MAJOR = #{record.studentMajor,jdbcType=VARCHAR},
@@ -198,7 +197,7 @@
     update student
     set STUDENT_ID = #{record.studentId,jdbcType=VARCHAR},
       STUDENT_NAME = #{record.studentName,jdbcType=VARCHAR},
-      STUDENT_DEPT = #{record.studentDept,jdbcType=VARCHAR},
+      DEPT_ID = #{record.deptId,jdbcType=INTEGER},
       STUDENT_MAJOR = #{record.studentMajor,jdbcType=VARCHAR},
       STUDENT_GRADE = #{record.studentGrade,jdbcType=VARCHAR},
       STUDENT_CLASS = #{record.studentClass,jdbcType=VARCHAR},
@@ -213,8 +212,8 @@
       <if test="studentName != null">
         STUDENT_NAME = #{studentName,jdbcType=VARCHAR},
       </if>
-      <if test="studentDept != null">
-        STUDENT_DEPT = #{studentDept,jdbcType=VARCHAR},
+      <if test="deptId != null">
+        DEPT_ID = #{deptId,jdbcType=INTEGER},
       </if>
       <if test="studentMajor != null">
         STUDENT_MAJOR = #{studentMajor,jdbcType=VARCHAR},
@@ -234,7 +233,7 @@
   <update id="updateByPrimaryKey" parameterType="com.edu.po.Student">
     update student
     set STUDENT_NAME = #{studentName,jdbcType=VARCHAR},
-      STUDENT_DEPT = #{studentDept,jdbcType=VARCHAR},
+      DEPT_ID = #{deptId,jdbcType=INTEGER},
       STUDENT_MAJOR = #{studentMajor,jdbcType=VARCHAR},
       STUDENT_GRADE = #{studentGrade,jdbcType=VARCHAR},
       STUDENT_CLASS = #{studentClass,jdbcType=VARCHAR},

@@ -9,6 +9,8 @@ public class EntryExtend {
 
     private String extendValue;
 
+    private String isDel;
+
     public Integer getEntryExtendId() {
         return entryExtendId;
     }
@@ -39,5 +41,13 @@ public class EntryExtend {
 
     public void setExtendValue(String extendValue) {
         this.extendValue = extendValue == null ? null : extendValue.trim();
+    }
+
+    public String getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(String isDel) {
+        this.isDel = isDel == null ? null : isDel.trim();
     }
 }

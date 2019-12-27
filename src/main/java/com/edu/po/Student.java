@@ -5,7 +5,7 @@ public class Student {
 
     private String studentName;
 
-    private String studentDept;
+    private Integer deptId;
 
     private String studentMajor;
 
@@ -31,12 +31,12 @@ public class Student {
         this.studentName = studentName == null ? null : studentName.trim();
     }
 
-    public String getStudentDept() {
-        return studentDept;
+    public Integer getDeptId() {
+        return deptId;
     }
 
-    public void setStudentDept(String studentDept) {
-        this.studentDept = studentDept == null ? null : studentDept.trim();
+    public void setDeptId(Integer deptId) {
+        this.deptId = deptId;
     }
 
     public String getStudentMajor() {

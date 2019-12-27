@@ -2,18 +2,18 @@ package com.edu.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.edu.po.CompetitionCustom;
+import com.edu.po.DeptCustom;
 import com.edu.po.TeacherCustom;
 import com.edu.potemp.LoginTemp;
 import com.edu.potemp.MyError;
-import com.edu.service.CompetitionService;
-import com.edu.service.TeacherService;
+import com.edu.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,6 +29,18 @@ public class TeacherController {
 
     @Autowired
     private CompetitionService competitionService;
+
+    @Autowired
+    private DeptService deptService;
+
+    @Autowired
+    private CompetitionScopeService competitionScopeService;
+
+    @Autowired
+    private CompetitionObjService competitionObjService;
+
+    @Autowired
+    private CompetitionExtService competitionExtService;
 
     // 解决前端date类型映射不到实体类的问题
     @InitBinder
@@ -62,7 +74,6 @@ public class TeacherController {
         TeacherCustom teacherCustom = (TeacherCustom) session.getAttribute("teacher");
         List<CompetitionCustom> competitionCustomList = competitionService.getCompByTid(teacherCustom.getTeacherId());
         request.setAttribute("competitionList",competitionCustomList);
-        System.out.println(JSON.toJSONString(competitionCustomList));
         return "teacher/myCompetiton";
     }
     // 去申请比赛
@@ -83,20 +94,47 @@ public class TeacherController {
 
     // 去发布报名信息
     @RequestMapping("/toReleaseCompByCid")
-    public String releaseCompByCid(Integer compId,HttpServletRequest request){
+    public String toReleaseCompByCid(Integer compId,HttpServletRequest request){
         CompetitionCustom competitionCustom = competitionService.getCompByCid(compId);
+        List<DeptCustom> deptCustomList = deptService.getDeptAll();
         request.setAttribute("competition",competitionCustom);
+        request.setAttribute("deptList",deptCustomList);
         return "teacher/releaseComp";
     }
+
+    // 发布报名信息
+    @RequestMapping("/releaseCompByCid")
+    public String releaseCompByCid(@RequestParam(value = "grade", required = false) String[] grades,
+                                   @RequestParam(value = "myExtend") String[] myExtends,
+                                   Integer compId, Integer deptId,
+                                   HttpServletRequest request, HttpSession session){
+        if (grades.length >= 5){
+            competitionScopeService.addCompScopeByCidVal(compId,"9");
+        }
+        else {
+            for (String grade : grades ) {
+                competitionScopeService.addCompScopeByCidVal(compId,grade);
+            }
+        }
+        competitionObjService.addCompObjByCidDid(compId,deptId);
+        for (String myExtend : myExtends ) {
+            competitionExtService.addCompExtByCidExtKey(compId,myExtend);
+        }
+        competitionService.signingCompByCid(compId);
+        return "forward:toMyCompetition";
+    }
+
+    // 去录入成绩
     @RequestMapping("/toScoreCompByCid")
     public String scoreCompByCid(CompetitionCustom competitionCustom){
         return "teacher/scoreComp";
     }
 
+    // 查看比赛详细信息
     @RequestMapping("/toTCompetitionInfo")
     public String toTCompetitionInfo(Integer compId,HttpServletRequest request){
         CompetitionCustom competitionCustom = competitionService.getCompByCid(compId);
         request.setAttribute("competition",competitionCustom);
-        return "teacher/competitionInfo";
+        return "/teacher/competitionInfo";
     }
 }

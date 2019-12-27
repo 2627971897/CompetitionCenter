@@ -244,73 +244,63 @@ public class StudentExample {
             return (Criteria) this;
         }
 
-        public Criteria andStudentDeptIsNull() {
-            addCriterion("STUDENT_DEPT is null");
+        public Criteria andDeptIdIsNull() {
+            addCriterion("DEPT_ID is null");
             return (Criteria) this;
         }
 
-        public Criteria andStudentDeptIsNotNull() {
-            addCriterion("STUDENT_DEPT is not null");
+        public Criteria andDeptIdIsNotNull() {
+            addCriterion("DEPT_ID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStudentDeptEqualTo(String value) {
-            addCriterion("STUDENT_DEPT =", value, "studentDept");
+        public Criteria andDeptIdEqualTo(Integer value) {
+            addCriterion("DEPT_ID =", value, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andStudentDeptNotEqualTo(String value) {
-            addCriterion("STUDENT_DEPT <>", value, "studentDept");
+        public Criteria andDeptIdNotEqualTo(Integer value) {
+            addCriterion("DEPT_ID <>", value, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andStudentDeptGreaterThan(String value) {
-            addCriterion("STUDENT_DEPT >", value, "studentDept");
+        public Criteria andDeptIdGreaterThan(Integer value) {
+            addCriterion("DEPT_ID >", value, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andStudentDeptGreaterThanOrEqualTo(String value) {
-            addCriterion("STUDENT_DEPT >=", value, "studentDept");
+        public Criteria andDeptIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("DEPT_ID >=", value, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andStudentDeptLessThan(String value) {
-            addCriterion("STUDENT_DEPT <", value, "studentDept");
+        public Criteria andDeptIdLessThan(Integer value) {
+            addCriterion("DEPT_ID <", value, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andStudentDeptLessThanOrEqualTo(String value) {
-            addCriterion("STUDENT_DEPT <=", value, "studentDept");
+        public Criteria andDeptIdLessThanOrEqualTo(Integer value) {
+            addCriterion("DEPT_ID <=", value, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andStudentDeptLike(String value) {
-            addCriterion("STUDENT_DEPT like", value, "studentDept");
+        public Criteria andDeptIdIn(List<Integer> values) {
+            addCriterion("DEPT_ID in", values, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andStudentDeptNotLike(String value) {
-            addCriterion("STUDENT_DEPT not like", value, "studentDept");
+        public Criteria andDeptIdNotIn(List<Integer> values) {
+            addCriterion("DEPT_ID not in", values, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andStudentDeptIn(List<String> values) {
-            addCriterion("STUDENT_DEPT in", values, "studentDept");
+        public Criteria andDeptIdBetween(Integer value1, Integer value2) {
+            addCriterion("DEPT_ID between", value1, value2, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andStudentDeptNotIn(List<String> values) {
-            addCriterion("STUDENT_DEPT not in", values, "studentDept");
-            return (Criteria) this;
-        }
-
-        public Criteria andStudentDeptBetween(String value1, String value2) {
-            addCriterion("STUDENT_DEPT between", value1, value2, "studentDept");
-            return (Criteria) this;
-        }
-
-        public Criteria andStudentDeptNotBetween(String value1, String value2) {
-            addCriterion("STUDENT_DEPT not between", value1, value2, "studentDept");
+        public Criteria andDeptIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("DEPT_ID not between", value1, value2, "deptId");
             return (Criteria) this;
         }
 

@@ -293,6 +293,76 @@ public class CompetitionExtendExample {
             addCriterion("EXTEND_KEY not between", value1, value2, "extendKey");
             return (Criteria) this;
         }
+
+        public Criteria andIsDelIsNull() {
+            addCriterion("IS_DEL is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelIsNotNull() {
+            addCriterion("IS_DEL is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelEqualTo(String value) {
+            addCriterion("IS_DEL =", value, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelNotEqualTo(String value) {
+            addCriterion("IS_DEL <>", value, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelGreaterThan(String value) {
+            addCriterion("IS_DEL >", value, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelGreaterThanOrEqualTo(String value) {
+            addCriterion("IS_DEL >=", value, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelLessThan(String value) {
+            addCriterion("IS_DEL <", value, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelLessThanOrEqualTo(String value) {
+            addCriterion("IS_DEL <=", value, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelLike(String value) {
+            addCriterion("IS_DEL like", value, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelNotLike(String value) {
+            addCriterion("IS_DEL not like", value, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelIn(List<String> values) {
+            addCriterion("IS_DEL in", values, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelNotIn(List<String> values) {
+            addCriterion("IS_DEL not in", values, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelBetween(String value1, String value2) {
+            addCriterion("IS_DEL between", value1, value2, "isDel");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDelNotBetween(String value1, String value2) {
+            addCriterion("IS_DEL not between", value1, value2, "isDel");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

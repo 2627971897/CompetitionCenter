@@ -19,26 +19,36 @@ public class TeacherServiceImpl implements TeacherService {
     @Autowired
     private TeacherMapper teacherMapper;
 
+    public TeacherCustom transformToTeacherCustom(Teacher teacher) {
+
+        TeacherCustom teacherCustom = new TeacherCustom();
+        teacherCustom.setTeacherId(teacher.getTeacherId());
+        teacherCustom.setTeacherName(teacher.getTeacherName());
+        teacherCustom.setTeacherDept(teacher.getTeacherDept());
+        teacherCustom.setTeacherTitle(teacher.getTeacherTitle());
+        teacherCustom.setTeacherPost(teacher.getTeacherPost());
+        teacherCustom.setTeacherPwd(teacher.getTeacherPwd());
+
+        return teacherCustom;
+    }
+
+    @Override
+    public TeacherCustom getTeacherCByTid(String teacherId) {
+        Teacher teacher = teacherMapper.selectByPrimaryKey(teacherId);
+        return transformToTeacherCustom(teacher);
+    }
+
     @Override
     public TeacherCustom getTeacherCByIdPwd(LoginTemp loginTemp) {
         // teacherCustom作为返回结果
-        TeacherCustom teacherCustom = new TeacherCustom();
         TeacherExample teacherExample = new TeacherExample();
         TeacherExample.Criteria criteria = teacherExample.createCriteria();
         criteria.andTeacherIdEqualTo(loginTemp.getLoginId());
         criteria.andTeacherPwdEqualTo(loginTemp.getLoginPwd());
         List<Teacher> teacherList = teacherMapper.selectByExample(teacherExample);
         if (teacherList.size() <= 0){
-            System.out.println("TeacherServiceImpl:用户名或密码输入错误");
             return null;
         }
-        System.out.println("TeacherServiceImpl:登陆成功");
-        teacherCustom.setTeacherId(teacherList.get(0).getTeacherId());
-        teacherCustom.setTeacherName(teacherList.get(0).getTeacherName());
-        teacherCustom.setTeacherDept(teacherList.get(0).getTeacherDept());
-        teacherCustom.setTeacherTitle(teacherList.get(0).getTeacherTitle());
-        teacherCustom.setTeacherPost(teacherList.get(0).getTeacherPost());
-        teacherCustom.setTeacherPwd(teacherList.get(0).getTeacherPwd());
-        return teacherCustom;
+        return transformToTeacherCustom(teacherList.get(0));
     }
 }

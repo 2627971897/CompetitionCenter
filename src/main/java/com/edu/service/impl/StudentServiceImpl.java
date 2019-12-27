@@ -35,7 +35,7 @@ public class StudentServiceImpl implements StudentService {
         System.out.println("SutdengServiceImpl:登陆成功");
         studentCustom.setStudentId(studentList.get(0).getStudentId());
         studentCustom.setStudentName(studentList.get(0).getStudentName());
-        studentCustom.setStudentDept(studentList.get(0).getStudentDept());
+        studentCustom.setDeptId(studentList.get(0).getDeptId());
         studentCustom.setStudentMajor(studentList.get(0).getStudentMajor());
         studentCustom.setStudentGrade(studentList.get(0).getStudentGrade());
         studentCustom.setStudentClass(studentList.get(0).getStudentClass());
