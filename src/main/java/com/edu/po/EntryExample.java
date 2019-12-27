@@ -565,73 +565,73 @@ public class EntryExample {
             return (Criteria) this;
         }
 
-        public Criteria andStatusIsNull() {
-            addCriterion("STATUS is null");
+        public Criteria andEntryStatusIsNull() {
+            addCriterion("ENTRY_STATUS is null");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIsNotNull() {
-            addCriterion("STATUS is not null");
+        public Criteria andEntryStatusIsNotNull() {
+            addCriterion("ENTRY_STATUS is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStatusEqualTo(String value) {
-            addCriterion("STATUS =", value, "status");
+        public Criteria andEntryStatusEqualTo(String value) {
+            addCriterion("ENTRY_STATUS =", value, "entryStatus");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotEqualTo(String value) {
-            addCriterion("STATUS <>", value, "status");
+        public Criteria andEntryStatusNotEqualTo(String value) {
+            addCriterion("ENTRY_STATUS <>", value, "entryStatus");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThan(String value) {
-            addCriterion("STATUS >", value, "status");
+        public Criteria andEntryStatusGreaterThan(String value) {
+            addCriterion("ENTRY_STATUS >", value, "entryStatus");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThanOrEqualTo(String value) {
-            addCriterion("STATUS >=", value, "status");
+        public Criteria andEntryStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("ENTRY_STATUS >=", value, "entryStatus");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThan(String value) {
-            addCriterion("STATUS <", value, "status");
+        public Criteria andEntryStatusLessThan(String value) {
+            addCriterion("ENTRY_STATUS <", value, "entryStatus");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThanOrEqualTo(String value) {
-            addCriterion("STATUS <=", value, "status");
+        public Criteria andEntryStatusLessThanOrEqualTo(String value) {
+            addCriterion("ENTRY_STATUS <=", value, "entryStatus");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLike(String value) {
-            addCriterion("STATUS like", value, "status");
+        public Criteria andEntryStatusLike(String value) {
+            addCriterion("ENTRY_STATUS like", value, "entryStatus");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotLike(String value) {
-            addCriterion("STATUS not like", value, "status");
+        public Criteria andEntryStatusNotLike(String value) {
+            addCriterion("ENTRY_STATUS not like", value, "entryStatus");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIn(List<String> values) {
-            addCriterion("STATUS in", values, "status");
+        public Criteria andEntryStatusIn(List<String> values) {
+            addCriterion("ENTRY_STATUS in", values, "entryStatus");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotIn(List<String> values) {
-            addCriterion("STATUS not in", values, "status");
+        public Criteria andEntryStatusNotIn(List<String> values) {
+            addCriterion("ENTRY_STATUS not in", values, "entryStatus");
             return (Criteria) this;
         }
 
-        public Criteria andStatusBetween(String value1, String value2) {
-            addCriterion("STATUS between", value1, value2, "status");
+        public Criteria andEntryStatusBetween(String value1, String value2) {
+            addCriterion("ENTRY_STATUS between", value1, value2, "entryStatus");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotBetween(String value1, String value2) {
-            addCriterion("STATUS not between", value1, value2, "status");
+        public Criteria andEntryStatusNotBetween(String value1, String value2) {
+            addCriterion("ENTRY_STATUS not between", value1, value2, "entryStatus");
             return (Criteria) this;
         }
 

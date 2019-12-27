@@ -63,7 +63,7 @@
       <table schema="springmvc_db" tableName="pro_collect"/>
       <table schema="springmvc_db" tableName="student"/>
       <table schema="springmvc_db" tableName="teacher"/>-->
-      <table schema="springmvc_db" tableName="student"/>
+      <table schema="springmvc_db" tableName="entry"/>
 
 
   </context>

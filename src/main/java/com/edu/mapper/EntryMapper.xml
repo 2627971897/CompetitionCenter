@@ -9,7 +9,7 @@
     <result column="IS_PER" jdbcType="VARCHAR" property="isPer" />
     <result column="TEAM_NAME" jdbcType="VARCHAR" property="teamName" />
     <result column="ENTRY_DATE" jdbcType="TIMESTAMP" property="entryDate" />
-    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="ENTRY_STATUS" jdbcType="VARCHAR" property="entryStatus" />
     <result column="SCORE" jdbcType="VARCHAR" property="score" />
     <result column="IS_DEL" jdbcType="VARCHAR" property="isDel" />
   </resultMap>
@@ -72,8 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ENTRY_ID, STUDENT_ID, COMP_ID, PHONE, IS_PER, TEAM_NAME, ENTRY_DATE, STATUS, SCORE, 
-    IS_DEL
+    ENTRY_ID, STUDENT_ID, COMP_ID, PHONE, IS_PER, TEAM_NAME, ENTRY_DATE, ENTRY_STATUS, 
+    SCORE, IS_DEL
   </sql>
   <select id="selectByExample" parameterType="com.edu.po.EntryExample" resultMap="BaseResultMap">
     select
@@ -108,11 +108,11 @@
   <insert id="insert" parameterType="com.edu.po.Entry">
     insert into entry (ENTRY_ID, STUDENT_ID, COMP_ID, 
       PHONE, IS_PER, TEAM_NAME, 
-      ENTRY_DATE, STATUS, SCORE, 
+      ENTRY_DATE, ENTRY_STATUS, SCORE, 
       IS_DEL)
     values (#{entryId,jdbcType=INTEGER}, #{studentId,jdbcType=VARCHAR}, #{compId,jdbcType=INTEGER}, 
       #{phone,jdbcType=VARCHAR}, #{isPer,jdbcType=VARCHAR}, #{teamName,jdbcType=VARCHAR}, 
-      #{entryDate,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, 
+      #{entryDate,jdbcType=TIMESTAMP}, #{entryStatus,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, 
       #{isDel,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.edu.po.Entry">
@@ -139,8 +139,8 @@
       <if test="entryDate != null">
         ENTRY_DATE,
       </if>
-      <if test="status != null">
-        STATUS,
+      <if test="entryStatus != null">
+        ENTRY_STATUS,
       </if>
       <if test="score != null">
         SCORE,
@@ -171,8 +171,8 @@
       <if test="entryDate != null">
         #{entryDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=VARCHAR},
+      <if test="entryStatus != null">
+        #{entryStatus,jdbcType=VARCHAR},
       </if>
       <if test="score != null">
         #{score,jdbcType=VARCHAR},
@@ -212,8 +212,8 @@
       <if test="record.entryDate != null">
         ENTRY_DATE = #{record.entryDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.status != null">
-        STATUS = #{record.status,jdbcType=VARCHAR},
+      <if test="record.entryStatus != null">
+        ENTRY_STATUS = #{record.entryStatus,jdbcType=VARCHAR},
       </if>
       <if test="record.score != null">
         SCORE = #{record.score,jdbcType=VARCHAR},
@@ -235,7 +235,7 @@
       IS_PER = #{record.isPer,jdbcType=VARCHAR},
       TEAM_NAME = #{record.teamName,jdbcType=VARCHAR},
       ENTRY_DATE = #{record.entryDate,jdbcType=TIMESTAMP},
-      STATUS = #{record.status,jdbcType=VARCHAR},
+      ENTRY_STATUS = #{record.entryStatus,jdbcType=VARCHAR},
       SCORE = #{record.score,jdbcType=VARCHAR},
       IS_DEL = #{record.isDel,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -263,8 +263,8 @@
       <if test="entryDate != null">
         ENTRY_DATE = #{entryDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="status != null">
-        STATUS = #{status,jdbcType=VARCHAR},
+      <if test="entryStatus != null">
+        ENTRY_STATUS = #{entryStatus,jdbcType=VARCHAR},
       </if>
       <if test="score != null">
         SCORE = #{score,jdbcType=VARCHAR},
@@ -283,7 +283,7 @@
       IS_PER = #{isPer,jdbcType=VARCHAR},
       TEAM_NAME = #{teamName,jdbcType=VARCHAR},
       ENTRY_DATE = #{entryDate,jdbcType=TIMESTAMP},
-      STATUS = #{status,jdbcType=VARCHAR},
+      ENTRY_STATUS = #{entryStatus,jdbcType=VARCHAR},
       SCORE = #{score,jdbcType=VARCHAR},
       IS_DEL = #{isDel,jdbcType=VARCHAR}
     where ENTRY_ID = #{entryId,jdbcType=INTEGER}

@@ -17,7 +17,7 @@ public class Entry {
 
     private Date entryDate;
 
-    private String status;
+    private String entryStatus;
 
     private String score;
 
@@ -79,12 +79,12 @@ public class Entry {
         this.entryDate = entryDate;
     }
 
-    public String getStatus() {
-        return status;
+    public String getEntryStatus() {
+        return entryStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+    public void setEntryStatus(String entryStatus) {
+        this.entryStatus = entryStatus == null ? null : entryStatus.trim();
     }
 
     public String getScore() {

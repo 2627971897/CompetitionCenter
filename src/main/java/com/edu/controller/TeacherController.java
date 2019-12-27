@@ -55,9 +55,9 @@ public class TeacherController {
     public String tLogin(LoginTemp loginTemp, HttpServletRequest request, HttpSession session){
         TeacherCustom teacherCustom = teacherService.getTeacherCByIdPwd(loginTemp);
         if (teacherCustom == null){
-            System.out.println("登录失败，用户名或密码错误！");
+            System.out.println("教师登录失败，用户名或密码错误！");
             MyError myError = new MyError();
-            myError.setErrorInfo("登录失败，用户名或密码错误！");
+            myError.setErrorInfo("教师登录失败，用户名或密码错误！");
             request.setAttribute("myError",myError);
             return "myError";
         }

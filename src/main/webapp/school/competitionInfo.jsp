@@ -24,7 +24,7 @@
 <c:if test="${competition.isPro=='N'}">
     不提交
 </c:if><br>
-比赛性质：
+参赛性质：
 <c:if test="${competition.isPer=='1'}">
     仅个人
 </c:if>

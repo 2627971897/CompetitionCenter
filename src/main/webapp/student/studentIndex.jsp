@@ -11,6 +11,17 @@
     <title>studentIndex</title>
 </head>
 <body>
-this is studentIndex
+欢迎你，${student.studentName}||${student.studentId}||${student.deptName}||
+${student.studentGrade}级${student.studentMajor}${student.studentClass}班<br>
+<input type="button" value="我报名的比赛" onclick="toMyJoinComp()"/><br>
+<input type="button" value="快去参加比赛" onclick="toJoiningComp()"/><br>
 </body>
+<script type="text/javascript">
+function toMyJoinComp() {
+
+}
+function toJoiningComp() {
+    window.location.href="${pageContext.request.contextPath}/toJoiningComp";
+}
+</script>
 </html>

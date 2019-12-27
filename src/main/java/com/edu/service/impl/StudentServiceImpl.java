@@ -1,10 +1,9 @@
 package com.edu.service.impl;
 
 import com.edu.mapper.StudentMapper;
-import com.edu.po.Student;
-import com.edu.po.StudentCustom;
-import com.edu.po.StudentExample;
+import com.edu.po.*;
 import com.edu.potemp.LoginTemp;
+import com.edu.service.DeptService;
 import com.edu.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +18,24 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentMapper studentMapper;
 
+    @Autowired
+    private DeptService deptService;
+
+    public StudentCustom transformToStudentCustom(Student student){
+        StudentCustom studentCustom = new StudentCustom();
+        studentCustom.setStudentId(student.getStudentId());
+        studentCustom.setStudentName(student.getStudentName());
+        studentCustom.setDeptId(student.getDeptId());
+        studentCustom.setStudentMajor(student.getStudentMajor());
+        studentCustom.setStudentGrade(student.getStudentGrade());
+        studentCustom.setStudentClass(student.getStudentClass());
+        studentCustom.setStudentPwd(student.getStudentPwd());
+
+        DeptCustom deptCustom = deptService.getDeptByDid(student.getDeptId());
+        studentCustom.setDeptName(deptCustom.getDeptName());
+        return studentCustom;
+    }
+
     @Override
     public StudentCustom getStudentCByIdPwd(LoginTemp loginTemp) {
         // studentCustom作为返回结果
@@ -29,17 +46,8 @@ public class StudentServiceImpl implements StudentService {
         criteria.andStudentPwdEqualTo(loginTemp.getLoginPwd());
         List<Student> studentList = studentMapper.selectByExample(studentExample);
         if (studentList.size() <= 0){
-            System.out.println("SutdengServiceImpl:用户名或密码输入错误");
             return null;
         }
-        System.out.println("SutdengServiceImpl:登陆成功");
-        studentCustom.setStudentId(studentList.get(0).getStudentId());
-        studentCustom.setStudentName(studentList.get(0).getStudentName());
-        studentCustom.setDeptId(studentList.get(0).getDeptId());
-        studentCustom.setStudentMajor(studentList.get(0).getStudentMajor());
-        studentCustom.setStudentGrade(studentList.get(0).getStudentGrade());
-        studentCustom.setStudentClass(studentList.get(0).getStudentClass());
-        studentCustom.setStudentPwd(studentList.get(0).getStudentPwd());
-        return studentCustom;
+        return transformToStudentCustom(studentList.get(0));
     }
 }

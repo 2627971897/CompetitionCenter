@@ -18,6 +18,15 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Autowired
     private SchoolMapper schoolMapper;
+
+    public SchoolCustom transformToSchoolCustom(School school){
+        SchoolCustom schoolCustom = new SchoolCustom();
+        schoolCustom.setSchoolId(school.getSchoolId());
+        schoolCustom.setSchoolAccount(school.getSchoolAccount());
+        schoolCustom.setSchoolPwd(school.getSchoolPwd());
+        return schoolCustom;
+    }
+
     @Override
     public SchoolCustom getSchoolCByIdPwd(LoginTemp loginTemp) {
         // schoolCustom作为返回结果
@@ -28,13 +37,8 @@ public class SchoolServiceImpl implements SchoolService {
         criteria.andSchoolPwdEqualTo(loginTemp.getLoginPwd());
         List<School> schoolList = schoolMapper.selectByExample(schoolExample);
         if (schoolList.size() <= 0){
-            System.out.println("SchoolServiceImpl:用户名或密码输入错误");
             return null;
         }
-        System.out.println("SchoolServiceImpl:登陆成功");
-        schoolCustom.setSchoolId(schoolList.get(0).getSchoolId());
-        schoolCustom.setSchoolAccount(schoolList.get(0).getSchoolAccount());
-        schoolCustom.setSchoolPwd(schoolList.get(0).getSchoolPwd());
-        return schoolCustom;
+        return transformToSchoolCustom(schoolList.get(0));
     }
 }

@@ -27,9 +27,9 @@ public class SchoolController {
     public String bLogin(LoginTemp loginTemp, HttpServletRequest request, HttpSession session){
         SchoolCustom schoolCustom = schoolService.getSchoolCByIdPwd(loginTemp);
         if (schoolCustom == null){
-            System.out.println("登录失败，用户名或密码错误！");
+            System.out.println("学校登录失败，用户名或密码错误！");
             MyError myError = new MyError();
-            myError.setErrorInfo("登录失败，用户名或密码错误！");
+            myError.setErrorInfo("学校登录失败，用户名或密码错误！");
             request.setAttribute("myError",myError);
             return "myError";
         }
