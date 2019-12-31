@@ -27,7 +27,7 @@
         <tr>
             <td>${competition.compId}</td>
             <td>${competition.teacherName}</td>
-            <td><a href="${pageContext.request.contextPath}/toTCompetitionInfo?compId=${competition.compId}">${competition.compName}</a></td>
+            <td><a href="${pageContext.request.contextPath}/toStCompetitionInfo?compId=${competition.compId}">${competition.compName}</a></td>
             <c:if test="${competition.isPro=='Y'}">
                 <td>提交</td>
             </c:if>

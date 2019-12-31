@@ -21,9 +21,12 @@ public class SchoolServiceImpl implements SchoolService {
 
     public SchoolCustom transformToSchoolCustom(School school){
         SchoolCustom schoolCustom = new SchoolCustom();
-        schoolCustom.setSchoolId(school.getSchoolId());
-        schoolCustom.setSchoolAccount(school.getSchoolAccount());
-        schoolCustom.setSchoolPwd(school.getSchoolPwd());
+        if (school != null){
+            schoolCustom.setSchoolId(school.getSchoolId());
+            schoolCustom.setSchoolAccount(school.getSchoolAccount());
+            schoolCustom.setSchoolPwd(school.getSchoolPwd());
+        }
+
         return schoolCustom;
     }
 

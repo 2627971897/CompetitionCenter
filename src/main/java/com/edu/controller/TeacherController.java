@@ -105,7 +105,7 @@ public class TeacherController {
     // 发布报名信息
     @RequestMapping("/releaseCompByCid")
     public String releaseCompByCid(@RequestParam(value = "grade", required = false) String[] grades,
-                                   @RequestParam(value = "myExtend") String[] myExtends,
+                                   @RequestParam(value = "myExtend", required = false) String[] myExtends,
                                    Integer compId, Integer deptId,
                                    HttpServletRequest request, HttpSession session){
         if (grades.length >= 5){
@@ -117,8 +117,10 @@ public class TeacherController {
             }
         }
         competitionObjService.addCompObjByCidDid(compId,deptId);
-        for (String myExtend : myExtends ) {
-            competitionExtService.addCompExtByCidExtKey(compId,myExtend);
+        if (myExtends != null){
+            for (String myExtend : myExtends ) {
+                competitionExtService.addCompExtByCidExtKey(compId,myExtend);
+            }
         }
         competitionService.signingCompByCid(compId);
         return "forward:toMyCompetition";

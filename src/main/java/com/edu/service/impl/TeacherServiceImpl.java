@@ -22,12 +22,14 @@ public class TeacherServiceImpl implements TeacherService {
     public TeacherCustom transformToTeacherCustom(Teacher teacher) {
 
         TeacherCustom teacherCustom = new TeacherCustom();
-        teacherCustom.setTeacherId(teacher.getTeacherId());
-        teacherCustom.setTeacherName(teacher.getTeacherName());
-        teacherCustom.setTeacherDept(teacher.getTeacherDept());
-        teacherCustom.setTeacherTitle(teacher.getTeacherTitle());
-        teacherCustom.setTeacherPost(teacher.getTeacherPost());
-        teacherCustom.setTeacherPwd(teacher.getTeacherPwd());
+        if (teacher != null){
+            teacherCustom.setTeacherId(teacher.getTeacherId());
+            teacherCustom.setTeacherName(teacher.getTeacherName());
+            teacherCustom.setTeacherDept(teacher.getTeacherDept());
+            teacherCustom.setTeacherTitle(teacher.getTeacherTitle());
+            teacherCustom.setTeacherPost(teacher.getTeacherPost());
+            teacherCustom.setTeacherPwd(teacher.getTeacherPwd());
+        }
 
         return teacherCustom;
     }

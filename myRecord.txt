@@ -1,0 +1,15 @@
+一、insertSelective后返回主键的方法
+// <insert />标签中加入下面代码
+<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="entryId">
+    SELECT LAST_INSERT_ID()
+</selectKey>
+
+tips：
+1.keyProperty 表示将自增长后的Id赋值给实体类中的 entryId 字段
+2.order="AFTER" 表示先执行插入语句，之后再执行查询语句。
+  可被设置为 BEFORE 或 AFTER。
+  如果设置为 BEFORE,那么它会首先选择主键,设置 keyProperty 然后执行插入语句。
+  如果设置为 AFTER,那么先执行插入语句,然后是 selectKey 元素-这和如 Oracle 数据库相似,可以在插入语句中嵌入序列调用
+3.SELECT LAST_INSERT_ID() 表示MySQL语法中查询出刚刚插入的记录自增长Id.
+4.实体类中 entryId 要有getter() and setter() 方法
+5.resultType 为 entryId 的类型

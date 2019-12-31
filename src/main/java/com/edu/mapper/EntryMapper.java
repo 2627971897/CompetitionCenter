@@ -3,6 +3,8 @@ package com.edu.mapper;
 import com.edu.po.Entry;
 import com.edu.po.EntryExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 
 public interface EntryMapper {

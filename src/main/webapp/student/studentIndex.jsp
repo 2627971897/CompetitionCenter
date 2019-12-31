@@ -18,7 +18,7 @@ ${student.studentGrade}级${student.studentMajor}${student.studentClass}班<br>
 </body>
 <script type="text/javascript">
 function toMyJoinComp() {
-
+    window.location.href="${pageContext.request.contextPath}/toStMyCompetition?studentId=${student.studentId}";
 }
 function toJoiningComp() {
     window.location.href="${pageContext.request.contextPath}/toJoiningComp";

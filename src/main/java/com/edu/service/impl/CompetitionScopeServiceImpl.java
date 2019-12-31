@@ -20,33 +20,25 @@ public class CompetitionScopeServiceImpl implements CompetitionScopeService {
     @Autowired
     private CompetitionScopeMapper competitionScopeMapper;
 
-    // 将 CompetitionScope 类型的list，转换成 CompetitionScopeCustom 类型的list
-    public List<CompetitionScopeCustom> transformToCompetitionScopeCustomList(List<CompetitionScope> competitionScopeList) {
-        List<CompetitionScopeCustom> competitionScopeCustomList = new ArrayList<>();
-
-        for (CompetitionScope competitionScope : competitionScopeList) {
-            CompetitionScopeCustom competitionScopeCustom = new CompetitionScopeCustom();
+    // 将 CompetitionScope 类型转换成 CompetitionScopeCustom 类型
+    public CompetitionScopeCustom transformToCompetitionScopeCustom(CompetitionScope competitionScope) {
+        CompetitionScopeCustom competitionScopeCustom = new CompetitionScopeCustom();
+        if (competitionScope != null){
             competitionScopeCustom.setCompScopeId(competitionScope.getCompScopeId());
             competitionScopeCustom.setCompId(competitionScope.getCompId());
             competitionScopeCustom.setValue(competitionScope.getValue());
             competitionScopeCustom.setIsDel(competitionScope.getIsDel());
-
-            competitionScopeCustomList.add(competitionScopeCustom);
         }
-
-        return competitionScopeCustomList;
+        return competitionScopeCustom;
     }
 
-    // 将 CompetitionScope 类型转换成 CompetitionScopeCustom 类型
-    public CompetitionScopeCustom transformToCompetitionScopeCustom(CompetitionScope competitionScope) {
-
-        CompetitionScopeCustom competitionScopeCustom = new CompetitionScopeCustom();
-        competitionScopeCustom.setCompScopeId(competitionScope.getCompScopeId());
-        competitionScopeCustom.setCompId(competitionScope.getCompId());
-        competitionScopeCustom.setValue(competitionScope.getValue());
-        competitionScopeCustom.setIsDel(competitionScope.getIsDel());
-
-        return competitionScopeCustom;
+    // 将 CompetitionScope 类型的list，转换成 CompetitionScopeCustom 类型的list
+    public List<CompetitionScopeCustom> transformToCompetitionScopeCustomList(List<CompetitionScope> competitionScopeList) {
+        List<CompetitionScopeCustom> competitionScopeCustomList = new ArrayList<>();
+        for (CompetitionScope competitionScope : competitionScopeList) {
+            competitionScopeCustomList.add(transformToCompetitionScopeCustom(competitionScope));
+        }
+        return competitionScopeCustomList;
     }
 
     // 根据 Cid，String 添加参赛范围

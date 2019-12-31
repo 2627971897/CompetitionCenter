@@ -17,18 +17,18 @@ import java.util.List;
 @Service
 @Transactional
 public class CompetitionObjServiceImpl implements CompetitionObjService {
+
     @Autowired
     private CompetitionObjectMapper competitionObjectMapper;
 
     @Autowired
     private DeptService deptService;
 
-    // 将 CompetitionObject 类型的list，转换成 CompetitionObjCustom 类型的list
-    public List<CompetitionObjCustom> transformToCompetitionObjCustomList(List<CompetitionObject> competitionObjectList) {
-        List<CompetitionObjCustom> competitionObjCustomList = new ArrayList<>();
+    // 将 CompetitionObject 类型转换成 CompetitionObjCustom 类型
+    public CompetitionObjCustom transformToCompetitionObjCustom(CompetitionObject competitionObject) {
 
-        for (CompetitionObject competitionObject : competitionObjectList) {
-            CompetitionObjCustom competitionObjCustom = new CompetitionObjCustom();
+        CompetitionObjCustom competitionObjCustom = new CompetitionObjCustom();
+        if (competitionObject != null){
             competitionObjCustom.setCompId(competitionObject.getCompId());
             competitionObjCustom.setDeptId(competitionObject.getDeptId());
             competitionObjCustom.setCompObjectId(competitionObject.getCompObjectId());
@@ -36,24 +36,18 @@ public class CompetitionObjServiceImpl implements CompetitionObjService {
 
             DeptCustom deptCustom = deptService.getDeptByDid(competitionObject.getDeptId());
             competitionObjCustom.setDeptName(deptCustom.getDeptName());
-
-            competitionObjCustomList.add(competitionObjCustom);
         }
-
-        return competitionObjCustomList;
+        return competitionObjCustom;
     }
 
-    // 将 CompetitionObject 类型转换成 CompetitionObjCustom 类型
-    public CompetitionObjCustom transformToCompetitionObjCustom(CompetitionObject competitionObject) {
+    // 将 CompetitionObject 类型的list，转换成 CompetitionObjCustom 类型的list
+    public List<CompetitionObjCustom> transformToCompetitionObjCustomList(List<CompetitionObject> competitionObjectList) {
+        List<CompetitionObjCustom> competitionObjCustomList = new ArrayList<>();
 
-        CompetitionObjCustom competitionObjCustom = new CompetitionObjCustom();
-        competitionObjCustom.setCompId(competitionObject.getCompId());
-        competitionObjCustom.setDeptId(competitionObject.getDeptId());
-        competitionObjCustom.setCompObjectId(competitionObject.getCompObjectId());
-        competitionObjCustom.setIsDel(competitionObject.getIsDel());
-
-
-        return competitionObjCustom;
+        for (CompetitionObject competitionObject : competitionObjectList) {
+            competitionObjCustomList.add(transformToCompetitionObjCustom(competitionObject));
+        }
+        return competitionObjCustomList;
     }
 
     // 根据 Cid，Did 添加参赛对象

@@ -1,17 +1,15 @@
 package com.edu.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.edu.po.CompetitionCustom;
-import com.edu.po.EntryCustom;
-import com.edu.po.StudentCustom;
+import com.edu.po.*;
 import com.edu.potemp.LoginTemp;
 import com.edu.potemp.MyError;
-import com.edu.service.CompetitionService;
-import com.edu.service.EntryService;
-import com.edu.service.StudentService;
+import com.edu.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,6 +26,12 @@ public class StudentController {
 
     @Autowired
     private EntryService entryService;
+
+    @Autowired
+    private EntryExtService entryExtService;
+
+    @Autowired
+    private EntrySlaService entrySlaService;
 
     @RequestMapping("/sLogin")
     public String sLogin(LoginTemp loginTemp, HttpServletRequest request, HttpSession session){
@@ -54,6 +58,13 @@ public class StudentController {
         return "/student/joiningComp";
     }
 
+    @RequestMapping("/toStCompetitionInfo")
+    public String toStCompetitionInfo(Integer compId,HttpServletRequest request){
+        CompetitionCustom competitionCustom = competitionService.getCompByCid(compId);
+        request.setAttribute("competition",competitionCustom);
+        return "student/competitionInfo";
+    }
+
     // 去参加比赛Step1
     @RequestMapping("/toJoinCompStep1")
     public String toJoinCompStep1(Integer compId,HttpServletRequest request){
@@ -65,16 +76,91 @@ public class StudentController {
 
     // 去参加比赛Step2,填写比赛扩展信息
     @RequestMapping("/toJoinCompStep2")
-    public String toJoinCompStep2(EntryCustom entryCustom){
-        entryService.addEntry(entryCustom);
+    public String toJoinCompStep2(HttpSession session,HttpServletRequest request){
+        CompetitionCustom competitionCustom = (CompetitionCustom) session.getAttribute("tempCompetitionCustom");
+        EntryCustom entryCustom = (EntryCustom) session.getAttribute("tempEntryCustom");
+        request.setAttribute("competition",competitionCustom);
+        request.setAttribute("entry",entryCustom);
         return "/student/joinCompStep2";
     }
 
     // 去参加比赛Step3,填写比赛成员信息
     @RequestMapping("/toJoinCompStep3")
-    public String toJoinCompStep3(){
+    public String toJoinCompStep3(HttpSession session,HttpServletRequest request){
+        CompetitionCustom competitionCustom = (CompetitionCustom) session.getAttribute("tempCompetitionCustom");
+        EntryCustom entryCustom = (EntryCustom) session.getAttribute("tempEntryCustom");
+        request.setAttribute("competition",competitionCustom);
+        request.setAttribute("entry",entryCustom);
+        return "/student/joinCompStep3";
+    }
 
+    // Step1完成
+    @RequestMapping("/step1Finish")
+    public String step1Finish(EntryCustom entryCustom, HttpSession session){
+        EntryCustom entryCustom1 = entryService.addEntryRetId(entryCustom);
+        CompetitionCustom competitionCustom = competitionService.getCompByCid(entryCustom.getCompId());
+        session.setAttribute("tempCompetitionCustom",competitionCustom);
+        session.setAttribute("tempEntryCustom",entryCustom1);
+        if (competitionCustom.getCompetitionExtCustomList().size()>0){
+            entryService.changeStaEntryByEid(entryCustom1.getEntryId(),"2");
+            return "redirect:toJoinCompStep2";
+        }
+        else {
+            if ("N".equals(entryCustom1.getIsPer())){
+                entryService.changeStaEntryByEid(entryCustom1.getEntryId(),"3");
+                return "redirect:toJoinCompStep3";
+            }
+            else {
+                entryService.changeStaEntryByEid(entryCustom1.getEntryId(),"11");
 
-        return "/student/joinCompStep2";
+                StudentCustom studentCustom = (StudentCustom) session.getAttribute("student");
+                return "redirect:toStMyCompetition?studentId=" + studentCustom.getStudentId();
+            }
+        }
+    }
+
+    // Step2完成
+    @RequestMapping("/step2Finish")
+    public String step2Finish(EntryExtQueryVo entryExtQueryVo,HttpServletRequest request,HttpSession session){
+        entryExtService.addEntryExtAll(entryExtQueryVo);
+        EntryCustom entryCustom = entryService.getEntryByEid(entryExtQueryVo.getEntryExtCustomList().get(0).getEntryId());
+        CompetitionCustom competitionCustom = competitionService.getCompByCid(entryCustom.getCompId());
+        request.setAttribute("competition",competitionCustom);
+        request.setAttribute("entry",entryCustom);
+        if ("N".equals(entryCustom.getIsPer())){
+            entryService.changeStaEntryByEid(entryCustom.getEntryId(),"3");
+            return "redirect:toJoinCompStep3";
+        }
+        else {
+            entryService.changeStaEntryByEid(entryCustom.getEntryId(),"11");
+
+            StudentCustom studentCustom = (StudentCustom) session.getAttribute("student");
+            return "redirect:toStMyCompetition?studentId=" + studentCustom.getStudentId();
+        }
+    }
+
+    // Step3完成
+    @RequestMapping("/step3Finish")
+    public String step3Finish(EntrySlaQueryVo entrySlaQueryVo,HttpSession session){
+        entrySlaService.addEntrySalAll(entrySlaQueryVo);
+        entryService.changeStaEntryByEid(entrySlaQueryVo.getEntrySlaCustomList().get(0).getEntryId(),"11");
+
+        StudentCustom studentCustom = (StudentCustom) session.getAttribute("student");
+        return "redirect:toStMyCompetition?studentId=" + studentCustom.getStudentId();
+    }
+
+    // 获取所有报名过的比赛
+    @RequestMapping("/toStMyCompetition")
+    public String toStMyCompetition(String studentId,HttpServletRequest request){
+        List<EntryCustom> entryCustomList = entryService.getEntryAllBySid(studentId);
+        request.setAttribute("entryList",entryCustomList);
+        return "/student/myCompetition";
+    }
+
+    @RequestMapping("/toMyCompInfo")
+    public String toMyCompInfo(Integer entryId,HttpServletRequest request){
+        EntryCustom entryCustom = entryService.getEntryOneByEid(entryId);
+        request.setAttribute("entry",entryCustom);
+        return "/student/myCompInfo";
     }
 }

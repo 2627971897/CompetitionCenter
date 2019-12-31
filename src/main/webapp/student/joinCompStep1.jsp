@@ -12,7 +12,7 @@
     <title>joinComp</title>
 </head>
 <body>
-<form method="post" action="${pageContext.request.contextPath}/toJoinCompStep2">
+<form id="myForm" method="post" action="${pageContext.request.contextPath}/step1Finish">
     <input type="hidden" name="studentId" value="${student.studentId}">
     <input type="hidden" name="compId" value="${competition.compId}">
 比赛：${competition.compId}&nbsp${competition.compName}<br>
@@ -22,7 +22,7 @@
 参赛性质：
 <c:if test="${competition.isPer=='1'}">
     <input type="hidden" name="isPer" value="Y">
-    仅个人
+    仅个人<br>
 </c:if>
 <c:if test="${competition.isPer=='2'}">
     <input type="hidden" name="isPer" value="N">
@@ -33,20 +33,45 @@
     <input id="perRadio" type="radio" name="isPer" value="Y" checked/>个人
     <input id="teamRadio" type="radio" name="isPer" value="N"/>团队<br id="add">
 </c:if>
-    <input type="submit" value="下一步>">
+    <input type="submit" value="下一步>" />
 </form>
 </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+
+    /*function goto(){
+        if (${competition.competitionExtCustomList[0].compId == null}) {
+            switch (${competition.isPer}) {
+                case 1:
+                    $("#myForm").prop("action","${pageContext.request.contextPath}/toJoiningComp")
+                    break;
+                case 2:
+                    $("#myForm").prop("action","${pageContext.request.contextPath}/toJoinCompStep3")
+                    break;
+                case 3:
+                    if($("#perRadio").prop("checked") == true){
+                        $("#myForm").prop("action","${pageContext.request.contextPath}/toJoiningComp")
+                    }
+                    else {
+                        $("#myForm").prop("action","${pageContext.request.contextPath}/toJoinCompStep3")
+                    }
+            }
+            $("#myForm").submit()
+        }
+        else{
+            $("#myForm").submit()
+        }
+    };*/
+
     $(function () {
         $("#teamRadio").change(function () {
-            if ($(teamRadio).prop("checked") == true){
+            if ($("#teamRadio").prop("checked") == true){
                 var txt1 = "<div id=\"teamName\">小队名称：<input type=\"text\" name=\"teamName\" /></div>"
                 $("#add").after(txt1);
             }
         })
         $("#perRadio").change(function () {
-            if ($(perRadio).prop("checked") == true){
+            if ($("#perRadio").prop("checked") == true){
                 $("#teamName").remove();
             }
         })

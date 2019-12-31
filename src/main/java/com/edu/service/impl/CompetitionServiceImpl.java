@@ -36,12 +36,11 @@ public class CompetitionServiceImpl implements CompetitionService {
     @Autowired
     private CompetitionScopeService competitionScopeService;
 
-    // 将Competition类型的list，转换成CompetitionCustom类型的list
-    public List<CompetitionCustom> transformToCompetitionCustomList(List<Competition> competitionList) {
-        List<CompetitionCustom> competitionCustomList = new ArrayList<>();
+    // 将Competition类型转换成CompetitionCustom类型
+    public CompetitionCustom transformToCompetitionCustom(Competition competition) {
 
-        for (Competition competition : competitionList) {
-            CompetitionCustom competitionCustom = new CompetitionCustom();
+        CompetitionCustom competitionCustom = new CompetitionCustom();
+        if (competition != null){
             competitionCustom.setCompId(competition.getCompId());
             competitionCustom.setTeacherId(competition.getTeacherId());
             competitionCustom.setCompName(competition.getCompName());
@@ -61,38 +60,18 @@ public class CompetitionServiceImpl implements CompetitionService {
             competitionCustom.setCompetitionScopeCustomList(competitionScopeService.getCompScopeByCid(competition.getCompId()));
 
             competitionCustom.setCompetitionObjCustomList(competitionObjService.getCompObjByCid(competition.getCompId()));
-
-            competitionCustomList.add(competitionCustom);
         }
 
-        return competitionCustomList;
+        return competitionCustom;
     }
 
-    // 将Competition类型转换成CompetitionCustom类型
-    public CompetitionCustom transformToCompetitionCustom(Competition competition) {
-
-        CompetitionCustom competitionCustom = new CompetitionCustom();
-        competitionCustom.setCompId(competition.getCompId());
-        competitionCustom.setTeacherId(competition.getTeacherId());
-        competitionCustom.setCompName(competition.getCompName());
-        competitionCustom.setCompDesc(competition.getCompDesc());
-        competitionCustom.setIsPro(competition.getIsPro());
-        competitionCustom.setApplyTime(competition.getApplyTime());
-        competitionCustom.setBeginTime(competition.getBeginTime());
-        competitionCustom.setEndTime(competition.getEndTime());
-        competitionCustom.setCompStatus(competition.getCompStatus());
-        competitionCustom.setIsDel(competition.getIsDel());
-        competitionCustom.setIsPer(competition.getIsPer());
-
-        competitionCustom.setTeacherName(teacherService.getTeacherCByTid(competition.getTeacherId()).getTeacherName());
-
-        competitionCustom.setCompetitionExtCustomList(competitionExtService.getCompExtByCid(competition.getCompId()));
-
-        competitionCustom.setCompetitionScopeCustomList(competitionScopeService.getCompScopeByCid(competition.getCompId()));
-
-        competitionCustom.setCompetitionObjCustomList(competitionObjService.getCompObjByCid(competition.getCompId()));
-
-        return competitionCustom;
+    // 将Competition类型的list，转换成CompetitionCustom类型的list
+    public List<CompetitionCustom> transformToCompetitionCustomList(List<Competition> competitionList) {
+        List<CompetitionCustom> competitionCustomList = new ArrayList<>();
+        for (Competition competition : competitionList) {
+            competitionCustomList.add(transformToCompetitionCustom(competition));
+        }
+        return competitionCustomList;
     }
 
     // 申请比赛

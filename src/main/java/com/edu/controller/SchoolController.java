@@ -44,14 +44,12 @@ public class SchoolController {
         SchoolCustom schoolCustom = (SchoolCustom) session.getAttribute("school");
         List<CompetitionCustom> competitionCustomList = competitionService.getCompAll();
         request.setAttribute("competitionList",competitionCustomList);
-        System.out.println(JSON.toJSONString(competitionCustomList));
         return "school/allCompetition";
     }
     @RequestMapping("/toVerifyCompetition")
     public String toVerifyCompetition(HttpSession session,HttpServletRequest request){
         List<CompetitionCustom> competitionCustomList = competitionService.getCompByStatus("1");
         request.setAttribute("competitionList",competitionCustomList);
-        System.out.println(JSON.toJSONString(competitionCustomList));
         return "school/applyCompetition";
     }
 

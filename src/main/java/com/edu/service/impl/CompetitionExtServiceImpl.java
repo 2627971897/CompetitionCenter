@@ -18,32 +18,28 @@ public class CompetitionExtServiceImpl implements CompetitionExtService {
     @Autowired
     private CompetitionExtendMapper competitionExtendMapper;
 
+    // 将 CompetitionExtend 类型转换成 CompetitionExtCustom 类型
+    public CompetitionExtCustom transformToCompetitionExtCustom(CompetitionExtend competitionExtend) {
+
+        CompetitionExtCustom competitionExtCustom = new CompetitionExtCustom();
+        if (competitionExtend != null){
+            competitionExtCustom.setCompId(competitionExtend.getCompId());
+            competitionExtCustom.setExtendKey(competitionExtend.getExtendKey());
+            competitionExtCustom.setCompExtendId(competitionExtend.getCompExtendId());
+            competitionExtCustom.setIsDel(competitionExtend.getIsDel());
+        }
+
+        return competitionExtCustom;
+    }
+
     // 将 CompetitionExtend 类型的list，转换成 CompetitionExtCustom 类型的list
     public List<CompetitionExtCustom> transformToCompetitionExtCustomList(List<CompetitionExtend> competitionExtendList) {
         List<CompetitionExtCustom> competitionExtCustomList = new ArrayList<>();
 
         for (CompetitionExtend competitionExtend : competitionExtendList) {
-            CompetitionExtCustom competitionExtCustom = new CompetitionExtCustom();
-            competitionExtCustom.setCompId(competitionExtend.getCompId());
-            competitionExtCustom.setExtendKey(competitionExtend.getExtendKey());
-            competitionExtCustom.setCompExtendId(competitionExtend.getCompExtendId());
-            competitionExtCustom.setIsDel(competitionExtend.getIsDel());
-
-            competitionExtCustomList.add(competitionExtCustom);
+            competitionExtCustomList.add(transformToCompetitionExtCustom(competitionExtend));
         }
-
         return competitionExtCustomList;
-    }
-
-    // 将 CompetitionExtend 类型转换成 CompetitionExtCustom 类型
-    public CompetitionExtCustom transformToCompetitionExtCustom(CompetitionExtend competitionExtend) {
-
-        CompetitionExtCustom competitionExtCustom = new CompetitionExtCustom();
-        competitionExtCustom.setCompId(competitionExtend.getCompId());
-        competitionExtCustom.setExtendKey(competitionExtend.getExtendKey());
-        competitionExtCustom.setCompExtendId(competitionExtend.getCompExtendId());
-
-        return competitionExtCustom;
     }
 
     // 根据 Cid，String 添加拓展字段
@@ -63,5 +59,10 @@ public class CompetitionExtServiceImpl implements CompetitionExtService {
         criteria.andCompIdEqualTo(compId);
         List<CompetitionExtend> competitionExtendList = competitionExtendMapper.selectByExample(competitionExtendExample);
         return transformToCompetitionExtCustomList(competitionExtendList);
+    }
+
+    @Override
+    public CompetitionExtCustom getCompExtByCEid(Integer compExtendId) {
+        return transformToCompetitionExtCustom(competitionExtendMapper.selectByPrimaryKey(compExtendId));
     }
 }

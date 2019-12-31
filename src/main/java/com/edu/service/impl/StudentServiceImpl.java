@@ -23,16 +23,17 @@ public class StudentServiceImpl implements StudentService {
 
     public StudentCustom transformToStudentCustom(Student student){
         StudentCustom studentCustom = new StudentCustom();
-        studentCustom.setStudentId(student.getStudentId());
-        studentCustom.setStudentName(student.getStudentName());
-        studentCustom.setDeptId(student.getDeptId());
-        studentCustom.setStudentMajor(student.getStudentMajor());
-        studentCustom.setStudentGrade(student.getStudentGrade());
-        studentCustom.setStudentClass(student.getStudentClass());
-        studentCustom.setStudentPwd(student.getStudentPwd());
-
-        DeptCustom deptCustom = deptService.getDeptByDid(student.getDeptId());
-        studentCustom.setDeptName(deptCustom.getDeptName());
+        if (student != null){
+            studentCustom.setStudentId(student.getStudentId());
+            studentCustom.setStudentName(student.getStudentName());
+            studentCustom.setDeptId(student.getDeptId());
+            studentCustom.setStudentMajor(student.getStudentMajor());
+            studentCustom.setStudentGrade(student.getStudentGrade());
+            studentCustom.setStudentClass(student.getStudentClass());
+            studentCustom.setStudentPwd(student.getStudentPwd());
+            DeptCustom deptCustom = deptService.getDeptByDid(student.getDeptId());
+            studentCustom.setDeptName(deptCustom.getDeptName());
+        }
         return studentCustom;
     }
 
@@ -49,5 +50,10 @@ public class StudentServiceImpl implements StudentService {
             return null;
         }
         return transformToStudentCustom(studentList.get(0));
+    }
+
+    @Override
+    public StudentCustom getStudentCBySId(String studentId) {
+        return transformToStudentCustom(studentMapper.selectByPrimaryKey(studentId));
     }
 }

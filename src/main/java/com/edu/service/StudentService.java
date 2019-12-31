@@ -6,4 +6,6 @@ import com.edu.potemp.LoginTemp;
 public interface StudentService {
 
     StudentCustom getStudentCByIdPwd(LoginTemp loginTemp);
+
+    StudentCustom getStudentCBySId(String studentId);
 }

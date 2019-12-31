@@ -10,4 +10,6 @@ public interface CompetitionExtService {
     void addCompExtByCidExtKey(Integer compId, String myExtend);
 
     List<CompetitionExtCustom> getCompExtByCid(Integer compId);
+
+    CompetitionExtCustom getCompExtByCEid(Integer compExtendId);
 }
