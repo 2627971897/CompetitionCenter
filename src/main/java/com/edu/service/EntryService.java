@@ -14,4 +14,10 @@ public interface EntryService {
     List<EntryCustom> getEntryAllBySid(String studentId);
 
     EntryCustom getEntryOneByEid(Integer entryId);
+
+    List<EntryCustom> getEntryByCidSta(Integer compId);
+
+    List<EntryCustom> getEntryByCidSta(Integer compId, String entryStatus);
+
+    List<EntryCustom> getEntryByCidSta(Integer compId, String entryStatus1, String entryStatus2);
 }

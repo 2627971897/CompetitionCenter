@@ -3,6 +3,8 @@ package com.edu.po;
 import java.util.List;
 
 public class EntryCustom extends Entry {
+    private String isPro;
+
     private String studentName;
 
     private String compName;
@@ -41,5 +43,13 @@ public class EntryCustom extends Entry {
 
     public void setEntrySlaCustomList(List<EntrySlaCustom> entrySlaCustomList) {
         this.entrySlaCustomList = entrySlaCustomList;
+    }
+
+    public String getIsPro() {
+        return isPro;
+    }
+
+    public void setIsPro(String isPro) {
+        this.isPro = isPro;
     }
 }

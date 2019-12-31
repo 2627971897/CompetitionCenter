@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>myCompInfo</title>
+    <title>entryInfo</title>
 </head>
 <body>
 报名ID：${entry.entryId}<br>
@@ -37,13 +37,7 @@
 </c:if>
 申请时间：<fmt:formatDate pattern="yyyy-MM-dd HH:mm:SS" value="${entry.entryDate}" /><br>
 报名状态：
-<c:if test="${entry.entryStatus=='11'}">待审核</c:if>
-<c:if test="${entry.entryStatus=='12'}">审核通过(非作品类)</c:if>
-<c:if test="${entry.entryStatus=='13'}">审核通过(作品类)</c:if>
-<c:if test="${entry.entryStatus=='14'}">作品已提交</c:if>
-<c:if test="${entry.entryStatus=='15'}">成绩已出，结束</c:if>
-<c:if test="${entry.entryStatus=='404'}">未参赛</c:if>
-<c:if test="${entry.entryStatus=='911'}">审核未通过</c:if><br>
+<c:if test="${entry.entryStatus=='11'}">待审核</c:if> <br>
 <c:if test="${not empty entry.score}">
     成绩：${entry.score}<br>
 </c:if>

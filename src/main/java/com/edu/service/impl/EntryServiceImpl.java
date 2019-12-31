@@ -49,6 +49,7 @@ public class EntryServiceImpl implements EntryService {
 
             CompetitionCustom competitionCustom = competitionService.getCompByCid(entry.getCompId());
             entryCustom.setCompName(competitionCustom.getCompName());
+            entryCustom.setIsPro(competitionCustom.getIsPro());
 
             List<EntryExtCustom> entryExtCustomList = entryExtService.getEntryExtByEid(entry.getEntryId());
             entryCustom.setEntryExtCustomList(entryExtCustomList);
@@ -103,5 +104,34 @@ public class EntryServiceImpl implements EntryService {
     @Override
     public EntryCustom getEntryOneByEid(Integer entryId) {
         return transformToEntryCustom(entryMapper.selectByPrimaryKey(entryId));
+    }
+
+    @Override
+    public List<EntryCustom> getEntryByCidSta(Integer compId) {
+        EntryExample entryExample = new EntryExample();
+        EntryExample.Criteria criteria = entryExample.createCriteria();
+        criteria.andCompIdEqualTo(compId);
+        return transformToEntryCustomList(entryMapper.selectByExample(entryExample));
+    }
+
+    @Override
+    public List<EntryCustom> getEntryByCidSta(Integer compId, String entryStatus) {
+        EntryExample entryExample = new EntryExample();
+        EntryExample.Criteria criteria = entryExample.createCriteria();
+        criteria.andCompIdEqualTo(compId);
+        criteria.andEntryStatusEqualTo(entryStatus);
+        return transformToEntryCustomList(entryMapper.selectByExample(entryExample));
+    }
+
+    @Override
+    public List<EntryCustom> getEntryByCidSta(Integer compId, String entryStatus1, String entryStatus2) {
+        EntryExample entryExample = new EntryExample();
+        EntryExample.Criteria criteria = entryExample.createCriteria();
+        criteria.andCompIdEqualTo(compId);
+        List<String> entryStatusList = new ArrayList<>();
+        entryStatusList.add(entryStatus1);
+        entryStatusList.add(entryStatus2);
+        criteria.andEntryStatusIn(entryStatusList);
+        return transformToEntryCustomList(entryMapper.selectByExample(entryExample));
     }
 }

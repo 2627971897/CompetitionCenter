@@ -51,7 +51,7 @@
             <td><a href="${pageContext.request.contextPath}/toReleaseCompByCid?compId=${competition.compId}">待发布报名信息</a></td>
         </c:if>
         <c:if test="${competition.compStatus=='3'}">
-            <td>正在报名中...</td>
+            <td>正在<a href="${pageContext.request.contextPath}/chooseEntry?compId=${competition.compId}&chooseTerrace=apply">报名</a>中...</td>
         </c:if>
         <c:if test="${competition.compStatus=='4'}">
             <td><a href="${pageContext.request.contextPath}/toScoreCompByCid?compId=${competition.compId}">报名截止，待录入成绩</a></td>

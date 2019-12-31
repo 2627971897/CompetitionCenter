@@ -3,16 +3,20 @@
 <%--
   Created by IntelliJ IDEA.
   User: ASUS
-  Date: 2019/12/30
-  Time: 17:00
+  Date: 2019/12/31
+  Time: 16:00
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>myCompetition</title>
+    <title>applyEntry</title>
 </head>
 <body>
+<input type="button" onclick="toApplyEntry()" value="正在申请中"/>
+<input type="button" onclick="toSucEntry()" value="通过的申请"/>
+<input type="button" onclick="toAllEntry()" value="全部申请"/>
+<input type="button" onclick="toFailureEntry()" value="未通过的申请"/>
 <table border="1">
     <tr>
         <th>ID</th>
@@ -22,10 +26,11 @@
         <th>参赛性质</th>
         <th>申请时间</th>
         <th>参赛状态</th>
+        <th>操作</th>
     </tr>
     <c:forEach items="${entryList}" var="entry">
         <tr>
-            <td><a href="${pageContext.request.contextPath}/toMyCompInfo?entryId=${entry.entryId}">${entry.entryId}</a></td>
+            <td><a href="${pageContext.request.contextPath}/toEntryInfo?entryId=${entry.entryId}">${entry.entryId}</a></td>
             <td>${entry.studentName}</td>
             <td>${entry.compName}</td>
             <td>${entry.phone}</td>
@@ -43,8 +48,24 @@
                 <c:if test="${entry.entryStatus=='15'}">成绩已出，结束</c:if>
                 <c:if test="${entry.entryStatus=='404'}">未参赛</c:if>
                 <c:if test="${entry.entryStatus=='911'}">审核未通过</c:if></td>
+            <td><a href="${pageContext.request.contextPath}/auditPassEntryOne?entryId=${entry.entryId}">审核通过</a>>
+                <a href="${pageContext.request.contextPath}/auditNoPassEntryOne?entryId=${entry.entryId}">审核不通过</a>></td>
         </tr>
     </c:forEach>
 </table>
 </body>
+<script type="text/javascript">
+    function toApplyEntry() {
+        window.location.href = "${pageContext.request.contextPath}/chooseEntry?compId=${competitionForEntry.compId}&chooseTerrace=apply";
+    }
+    function toSucEntry() {
+        window.location.href = "${pageContext.request.contextPath}/chooseEntry?compId=${competitionForEntry.compId}&chooseTerrace=suc";
+    }
+    function toAllEntry() {
+        window.location.href = "${pageContext.request.contextPath}/chooseEntry?compId=${competitionForEntry.compId}&chooseTerrace=all";
+    }
+    function toFailureEntry() {
+        window.location.href = "${pageContext.request.contextPath}/chooseEntry?compId=${competitionForEntry.compId}&chooseTerrace=failure";
+    }
+</script>
 </html>

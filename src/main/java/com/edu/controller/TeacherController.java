@@ -3,6 +3,7 @@ package com.edu.controller;
 import com.alibaba.fastjson.JSON;
 import com.edu.po.CompetitionCustom;
 import com.edu.po.DeptCustom;
+import com.edu.po.EntryCustom;
 import com.edu.po.TeacherCustom;
 import com.edu.potemp.LoginTemp;
 import com.edu.potemp.MyError;
@@ -41,6 +42,9 @@ public class TeacherController {
 
     @Autowired
     private CompetitionExtService competitionExtService;
+
+    @Autowired
+    private EntryService entryService;
 
     // 解决前端date类型映射不到实体类的问题
     @InitBinder
@@ -138,5 +142,85 @@ public class TeacherController {
         CompetitionCustom competitionCustom = competitionService.getCompByCid(compId);
         request.setAttribute("competition",competitionCustom);
         return "/teacher/competitionInfo";
+    }
+
+    @RequestMapping("/chooseEntry")
+    public String chooseEntry(String chooseTerrace,Integer compId,HttpSession session){
+        CompetitionCustom competitionCustom = competitionService.getCompByCid(compId);
+        session.setAttribute("competitionForEntry",competitionCustom);
+        if ("apply".equals(chooseTerrace)){   // 教师登录
+            return "forward:toApplyEntry";
+        }
+        else if ("failure".equals(chooseTerrace)){  // 学生登录
+            return "forward:toFailureEntry";
+        }
+        else if ("suc".equals(chooseTerrace)){   // 学校登录
+            return "forward:toSucEntry";
+        }
+        else if ("all".equals(chooseTerrace)){
+            return "forward:toAllEntry";
+        }
+        return "login";
+    }
+
+    // 查看申请比赛的信息
+    @RequestMapping("/toApplyEntry")
+    public String toApplyEntry(HttpSession session,HttpServletRequest request){
+        CompetitionCustom competitionCustom = (CompetitionCustom) session.getAttribute("competitionForEntry");
+        List<EntryCustom> entryCustomList = entryService.getEntryByCidSta(competitionCustom.getCompId(),"11");
+        request.setAttribute("entryList",entryCustomList);
+        return "teacher/applyEntry";
+    }
+
+    // 查看申请失败的信息
+    @RequestMapping("/toFailureEntry")
+    public String toFailureEntry(HttpSession session,HttpServletRequest request){
+        CompetitionCustom competitionCustom = (CompetitionCustom) session.getAttribute("competitionForEntry");
+        List<EntryCustom> entryCustomList = entryService.getEntryByCidSta(competitionCustom.getCompId(),"911");
+        request.setAttribute("entryList",entryCustomList);
+        return "teacher/failureEntry";
+    }
+
+    // 查看审核通过的信息
+    @RequestMapping("/toSucEntry")
+    public String toSucEntry(HttpSession session,HttpServletRequest request){
+        CompetitionCustom competitionCustom = (CompetitionCustom) session.getAttribute("competitionForEntry");
+        List<EntryCustom> entryCustomList = entryService.getEntryByCidSta(competitionCustom.getCompId(),"12","13");
+        request.setAttribute("entryList",entryCustomList);
+        return "teacher/sucEntry";
+    }
+
+    // 查看全部参赛的信息
+    @RequestMapping("/toAllEntry")
+    public String toAllEntry(HttpSession session,HttpServletRequest request){
+        CompetitionCustom competitionCustom = (CompetitionCustom) session.getAttribute("competitionForEntry");
+        List<EntryCustom> entryCustomList = entryService.getEntryByCidSta(competitionCustom.getCompId());
+        request.setAttribute("entryList",entryCustomList);
+        return "teacher/allEntry";
+    }
+
+    @RequestMapping("/toEntryInfo")
+    public String toEntryInfo(Integer entryId,HttpServletRequest request){
+        EntryCustom entryCustom = entryService.getEntryOneByEid(entryId);
+        request.setAttribute("entry",entryCustom);
+        return "teacher/entryInfo";
+    }
+
+    @RequestMapping("/auditPassEntryOne")
+    public String auditPassEntryOne(Integer entryId){
+        EntryCustom entryCustom = entryService.getEntryOneByEid(entryId);
+        if ("N".equals(entryCustom.getIsPro())){
+            entryService.changeStaEntryByEid(entryId,"12");
+        }
+        else {
+            entryService.changeStaEntryByEid(entryId,"13");
+        }
+        return "redirect:toApplyEntry";
+    }
+
+    @RequestMapping("/auditNoPassEntryOne")
+    public String auditNoPassEntryOne(Integer entryId){
+        entryService.changeStaEntryByEid(entryId,"911");
+        return "redirect:toApplyEntry";
     }
 }
