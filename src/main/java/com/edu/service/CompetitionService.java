@@ -13,11 +13,7 @@ public interface CompetitionService {
 
     List<CompetitionCustom> getCompByStatus(String compStatus);
 
-    void auditPassCompByCid(Integer compId);
-
     CompetitionCustom getCompByCid(Integer compId);
 
-    void auditNoPassCompByCid(Integer compId);
-
-    void signingCompByCid(Integer compId);
+    void changeStaCompByCid(Integer compId,String compStatus);
 }

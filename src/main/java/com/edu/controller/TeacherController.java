@@ -50,7 +50,7 @@ public class TeacherController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
     }
 
-    // 验证用户名密码是否正确
+    // 教师登录，验证用户名密码是否正确
     @RequestMapping("/tLogin")
     public String tLogin(LoginTemp loginTemp, HttpServletRequest request, HttpSession session){
         TeacherCustom teacherCustom = teacherService.getTeacherCByIdPwd(loginTemp);
@@ -122,7 +122,7 @@ public class TeacherController {
                 competitionExtService.addCompExtByCidExtKey(compId,myExtend);
             }
         }
-        competitionService.signingCompByCid(compId);
+        competitionService.changeStaCompByCid(compId,"3");
         return "forward:toMyCompetition";
     }
 

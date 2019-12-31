@@ -7,9 +7,8 @@ import com.edu.potemp.MyError;
 import com.edu.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -33,6 +32,7 @@ public class StudentController {
     @Autowired
     private EntrySlaService entrySlaService;
 
+    // 学生登录
     @RequestMapping("/sLogin")
     public String sLogin(LoginTemp loginTemp, HttpServletRequest request, HttpSession session){
         StudentCustom studentCustom = studentService.getStudentCByIdPwd(loginTemp);
@@ -58,6 +58,7 @@ public class StudentController {
         return "/student/joiningComp";
     }
 
+    // 查看比赛详细信息
     @RequestMapping("/toStCompetitionInfo")
     public String toStCompetitionInfo(Integer compId,HttpServletRequest request){
         CompetitionCustom competitionCustom = competitionService.getCompByCid(compId);
@@ -157,6 +158,7 @@ public class StudentController {
         return "/student/myCompetition";
     }
 
+    // 查看我的详细报名信息
     @RequestMapping("/toMyCompInfo")
     public String toMyCompInfo(Integer entryId,HttpServletRequest request){
         EntryCustom entryCustom = entryService.getEntryOneByEid(entryId);

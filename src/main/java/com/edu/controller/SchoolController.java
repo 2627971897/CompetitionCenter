@@ -23,6 +23,7 @@ public class SchoolController {
     @Autowired
     private CompetitionService competitionService;
 
+    // 管理登录
     @RequestMapping("/bLogin")
     public String bLogin(LoginTemp loginTemp, HttpServletRequest request, HttpSession session){
         SchoolCustom schoolCustom = schoolService.getSchoolCByIdPwd(loginTemp);
@@ -39,6 +40,7 @@ public class SchoolController {
             return "school/schoolIndex";
         }
     }
+    // 管理查看所有比赛
     @RequestMapping("/toAllCompetition")
     public String toAllCompetition(HttpSession session,HttpServletRequest request){
         SchoolCustom schoolCustom = (SchoolCustom) session.getAttribute("school");
@@ -46,6 +48,8 @@ public class SchoolController {
         request.setAttribute("competitionList",competitionCustomList);
         return "school/allCompetition";
     }
+
+    // 管理查看申请中的比赛
     @RequestMapping("/toVerifyCompetition")
     public String toVerifyCompetition(HttpSession session,HttpServletRequest request){
         List<CompetitionCustom> competitionCustomList = competitionService.getCompByStatus("1");
@@ -53,18 +57,21 @@ public class SchoolController {
         return "school/applyCompetition";
     }
 
+    // 比赛审核通过
     @RequestMapping("/auditPassCompOne")
     public String auditPassCompOne(CompetitionCustom competitionCustom){
-        competitionService.auditPassCompByCid(competitionCustom.getCompId());
+        competitionService.changeStaCompByCid(competitionCustom.getCompId(),"2");
         return "forward:toVerifyCompetition";
     }
 
+    // 比赛审核未通过
     @RequestMapping("/auditNoPassCompOne")
     public String auditNoPassCompOne(CompetitionCustom competitionCustom){
-        competitionService.auditNoPassCompByCid(competitionCustom.getCompId());
+        competitionService.changeStaCompByCid(competitionCustom.getCompId(),"9");
         return "forward:toVerifyCompetition";
     }
 
+    // 查看比赛详细信息
     @RequestMapping("/toSCompetitionInfo")
     public String toSCompetitionInfo(Integer compId,HttpServletRequest request){
         CompetitionCustom competitionCustom = competitionService.getCompByCid(compId);

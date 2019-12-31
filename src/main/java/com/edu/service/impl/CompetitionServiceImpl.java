@@ -16,8 +16,6 @@ import java.util.List;
 @Transactional
 public class CompetitionServiceImpl implements CompetitionService {
 
-
-
     @Autowired
     private CompetitionMapper competitionMapper;
 
@@ -117,15 +115,6 @@ public class CompetitionServiceImpl implements CompetitionService {
         return competitionCustomList;
     }
 
-    // 根据CompId审核通过比赛
-    @Override
-    public void auditPassCompByCid(Integer compId) {
-        Competition competition = new Competition();
-        competition.setCompId(compId);
-        competition.setCompStatus("2");
-        competitionMapper.updateByPrimaryKeySelective(competition);
-    }
-
     // 根据CompId查询比赛
     @Override
     public CompetitionCustom getCompByCid(Integer compId) {
@@ -134,21 +123,12 @@ public class CompetitionServiceImpl implements CompetitionService {
         return competitionCustom;
     }
 
-    // 根据CompId审核不通过比赛
+    // 更改比赛状态
     @Override
-    public void auditNoPassCompByCid(Integer compId) {
+    public void changeStaCompByCid(Integer compId, String compStatus) {
         Competition competition = new Competition();
         competition.setCompId(compId);
-        competition.setCompStatus("9");
-        competitionMapper.updateByPrimaryKeySelective(competition);
-    }
-
-    // 根据CompId比赛状态改为正在报名中
-    @Override
-    public void signingCompByCid(Integer compId) {
-        Competition competition = new Competition();
-        competition.setCompId(compId);
-        competition.setCompStatus("3");
+        competition.setCompStatus(compStatus);
         competitionMapper.updateByPrimaryKeySelective(competition);
     }
 }
