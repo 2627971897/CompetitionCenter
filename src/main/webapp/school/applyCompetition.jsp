@@ -57,7 +57,10 @@
                 <td>正在报名中...</td>
             </c:if>
             <c:if test="${competition.compStatus=='4'}">
-                <td>报名截止，待录入成绩</td>
+                <td>报名截止，待比赛截止</td>
+            </c:if>
+            <c:if test="${competition.compStatus=='5'}">
+                <td>比赛截止，待录入成绩</td>
             </c:if>
             <c:if test="${competition.compStatus=='9'}">
                 <td>审核未通过</td>

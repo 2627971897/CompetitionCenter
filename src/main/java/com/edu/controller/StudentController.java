@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -63,7 +64,7 @@ public class StudentController {
     public String toStCompetitionInfo(Integer compId,HttpServletRequest request){
         CompetitionCustom competitionCustom = competitionService.getCompByCid(compId);
         request.setAttribute("competition",competitionCustom);
-        return "student/competitionInfo";
+        return "/student/competitionInfo";
     }
 
     // 去参加比赛Step1
@@ -164,5 +165,21 @@ public class StudentController {
         EntryCustom entryCustom = entryService.getEntryOneByEid(entryId);
         request.setAttribute("entry",entryCustom);
         return "/student/myCompInfo";
+    }
+
+    // 去提交作品
+    @RequestMapping("/toUpload")
+    public String toUpload(Integer entryId,HttpServletRequest request){
+        EntryCustom entryCustom = entryService.getEntryOneByEid(entryId);
+        request.setAttribute("entry",entryCustom);
+        return "student/upload";
+    }
+
+    // 提交作品
+    @RequestMapping("/upload")
+    public String upload(Integer entryId, MultipartFile file, HttpSession session){
+        entryService.changeStaEntryByEid(entryId,"14");
+        StudentCustom studentCustom = (StudentCustom) session.getAttribute("student");
+        return "redirect:toStMyCompetition?studentId=" + studentCustom.getStudentId();
     }
 }

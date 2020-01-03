@@ -34,9 +34,9 @@
 <c:if test="${competition.isPer=='3'}">
     都可
 </c:if><br>
-申请时间：<fmt:formatDate pattern="yyyy-MM-dd HH:mm:SS" value="${competition.applyTime}" /><br>
-报名开始时间：<fmt:formatDate pattern="yyyy-MM-dd" value="${competition.beginTime}" /><br>
-截止报名时间：<fmt:formatDate pattern="yyyy-MM-dd" value="${competition.endTime}" /><br>
+申请时间：<fmt:formatDate pattern="yyyy-MM-dd HH:mm:SS" value="${competition.applyTime}"/><br>
+报名开始时间：<fmt:formatDate pattern="yyyy-MM-dd" value="${competition.beginTime}"/><br>
+截止报名时间：<fmt:formatDate pattern="yyyy-MM-dd" value="${competition.endTime}"/><br>
 比赛状态：
 <c:if test="${competition.compStatus=='1'}">
     待审核
@@ -48,7 +48,10 @@
     正在报名中...
 </c:if>
 <c:if test="${competition.compStatus=='4'}">
-    报名截止，待录入成绩
+    报名截止
+</c:if>
+<c:if test="${competition.compStatus=='5'}">
+    比赛截止，待录入成绩
 </c:if>
 <c:if test="${competition.compStatus=='9'}">
     审核未通过
@@ -56,9 +59,6 @@
 <c:if test="${competition.compStatus=='0'}">
     已结束
 </c:if><br>
-<c:if test="${competition.compStatus=='0'}">
-    已结束
-</c:if>
 <c:if test="${not empty competition.competitionScopeCustomList}">
     年级范围：
     <c:forEach items="${competition.competitionScopeCustomList}" var="competitionScope">

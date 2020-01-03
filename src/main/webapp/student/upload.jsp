@@ -1,16 +1,16 @@
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%--
   Created by IntelliJ IDEA.
   User: ASUS
-  Date: 2019/12/30
-  Time: 17:01
+  Date: 2020/1/2
+  Time: 9:51
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>entryInfo</title>
+    <title>upload</title>
 </head>
 <body>
 报名ID：${entry.entryId}<br>
@@ -39,13 +39,21 @@
 报名状态：
 <c:if test="${entry.entryStatus=='11'}">待审核</c:if>
 <c:if test="${entry.entryStatus=='12'}">审核通过(非作品类)</c:if>
-<c:if test="${entry.entryStatus=='13'}">审核通过(作品类)，待提交作品</c:if>
+<c:if test="${entry.entryStatus=='13'}">审核通过(作品类)</c:if>
 <c:if test="${entry.entryStatus=='14'}">作品已提交</c:if>
 <c:if test="${entry.entryStatus=='15'}">成绩已出，结束</c:if>
 <c:if test="${entry.entryStatus=='404'}">未参赛</c:if>
-<c:if test="${entry.entryStatus=='911'}">审核未通过</c:if> <br>
+<c:if test="${entry.entryStatus=='911'}">审核未通过</c:if><br>
 <c:if test="${not empty entry.score}">
     成绩：${entry.score}<br>
 </c:if>
+========================================================<br>
+======================== 提 交 作 品 ========================<br>
+========================================================<br>
+<form method="post" action="${pageContext.request.contextPath}/upload">
+    <input type="hidden" name="entryId" value="${entry.entryId}">
+    <input type="file" name="file">
+    <input type="submit" value="提交作品">
+</form>
 </body>
 </html>

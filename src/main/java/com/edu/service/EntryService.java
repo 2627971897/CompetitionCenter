@@ -20,4 +20,10 @@ public interface EntryService {
     List<EntryCustom> getEntryByCidSta(Integer compId, String entryStatus);
 
     List<EntryCustom> getEntryByCidSta(Integer compId, String entryStatus1, String entryStatus2);
+
+    void giveScoreByEid(Integer entryId, String score);
+
+    List<EntryCustom> getEntryByCidNotInSta(Integer compId, String entryStatus1, String entryStatus2);
+
+    void changeStaToStaEntryByCid(Integer compId, String entryStatus1, String entryStatus2);
 }

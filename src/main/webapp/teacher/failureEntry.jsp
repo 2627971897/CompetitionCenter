@@ -42,7 +42,7 @@
             <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:SS" value="${entry.entryDate}" /></td>
             <td><c:if test="${entry.entryStatus=='11'}">待审核</c:if>
                 <c:if test="${entry.entryStatus=='12'}">审核通过(非作品类)</c:if>
-                <c:if test="${entry.entryStatus=='13'}">审核通过(作品类)</c:if>
+                <c:if test="${entry.entryStatus=='13'}">审核通过(作品类)，待提交作品</c:if>
                 <c:if test="${entry.entryStatus=='14'}">作品已提交</c:if>
                 <c:if test="${entry.entryStatus=='15'}">成绩已出，结束</c:if>
                 <c:if test="${entry.entryStatus=='404'}">未参赛</c:if>

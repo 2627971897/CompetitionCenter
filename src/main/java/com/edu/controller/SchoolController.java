@@ -51,7 +51,7 @@ public class SchoolController {
 
     // 管理查看申请中的比赛
     @RequestMapping("/toVerifyCompetition")
-    public String toVerifyCompetition(HttpSession session,HttpServletRequest request){
+    public String toVerifyCompetition(HttpServletRequest request){
         List<CompetitionCustom> competitionCustomList = competitionService.getCompByStatus("1");
         request.setAttribute("competitionList",competitionCustomList);
         return "school/applyCompetition";
@@ -61,14 +61,14 @@ public class SchoolController {
     @RequestMapping("/auditPassCompOne")
     public String auditPassCompOne(CompetitionCustom competitionCustom){
         competitionService.changeStaCompByCid(competitionCustom.getCompId(),"2");
-        return "forward:toVerifyCompetition";
+        return "redirect:toVerifyCompetition";
     }
 
     // 比赛审核未通过
     @RequestMapping("/auditNoPassCompOne")
     public String auditNoPassCompOne(CompetitionCustom competitionCustom){
         competitionService.changeStaCompByCid(competitionCustom.getCompId(),"9");
-        return "forward:toVerifyCompetition";
+        return "redirect:toVerifyCompetition";
     }
 
     // 查看比赛详细信息

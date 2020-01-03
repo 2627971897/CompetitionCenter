@@ -48,13 +48,16 @@
                 <td>待审核</td>
             </c:if>
             <c:if test="${competition.compStatus=='2'}">
-                <td><a href="${pageContext.request.contextPath}/toReleaseCompByCid?compId=${competition.compId}">待发布报名信息</a></td>
+                <td>待发布报名信息</td>
             </c:if>
             <c:if test="${competition.compStatus=='3'}">
                 <td>正在<a href="${pageContext.request.contextPath}/toJoinCompStep1?compId=${competition.compId}">报名</a>中...</td>
             </c:if>
             <c:if test="${competition.compStatus=='4'}">
-                <td>报名截止，待<a href="${pageContext.request.contextPath}/toScoreCompByCid?compId=${competition.compId}">录入成绩</a></td>
+                <td>报名截止，待比赛截止</td>
+            </c:if>
+            <c:if test="${competition.compStatus=='5'}">
+                <td>比赛截止，待录入成绩</td>
             </c:if>
             <c:if test="${competition.compStatus=='9'}">
                 <td>审核未通过</td>

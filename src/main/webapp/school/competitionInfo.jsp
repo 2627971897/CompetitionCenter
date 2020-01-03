@@ -39,22 +39,25 @@
 截止报名时间：<fmt:formatDate pattern="yyyy-MM-dd HH:mm:SS" value="${competition.endTime}" /><br>
 比赛状态：
 <c:if test="${competition.compStatus=='1'}">
-    待审核
+    <td>待审核</td>
 </c:if>
 <c:if test="${competition.compStatus=='2'}">
-    待发布报名信息
+    <td>待发布报名信息</td>
 </c:if>
 <c:if test="${competition.compStatus=='3'}">
-    正在报名中...
+    <td>正在报名中...</td>
 </c:if>
 <c:if test="${competition.compStatus=='4'}">
-    报名截止，待录入成绩
+    <td>报名截止，待比赛截止</td>
+</c:if>
+<c:if test="${competition.compStatus=='5'}">
+    <td>比赛截止，待录入成绩</td>
 </c:if>
 <c:if test="${competition.compStatus=='9'}">
-    审核未通过
+    <td>审核未通过</td>
 </c:if>
 <c:if test="${competition.compStatus=='0'}">
-    已结束
+    <td>已结束</td>
 </c:if><br>
 <c:if test="${not empty competition.competitionScopeCustomList}">
     年级范围：

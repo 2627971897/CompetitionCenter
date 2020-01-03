@@ -31,15 +31,16 @@
     小队成员：<br>
     <c:forEach items="${entry.entrySlaCustomList}" var="entrySla">
         ===&nbsp学号：${entrySla.studentId}
-        ==姓名：<c:if test="${empty entrySla.studentName}">成员学号信息不存在！</c:if><c:if test="${not empty entrySla.studentName}">${entrySla.studentName}</c:if>
+        ==姓名：<c:if test="${empty entrySla.studentName}">成员学号信息不存在！</c:if><c:if
+            test="${not empty entrySla.studentName}">${entrySla.studentName}</c:if>
         ==电话：${entrySla.phone}<br>
     </c:forEach>
 </c:if>
-申请时间：<fmt:formatDate pattern="yyyy-MM-dd HH:mm:SS" value="${entry.entryDate}" /><br>
+申请时间：<fmt:formatDate pattern="yyyy-MM-dd HH:mm:SS" value="${entry.entryDate}"/><br>
 报名状态：
 <c:if test="${entry.entryStatus=='11'}">待审核</c:if>
 <c:if test="${entry.entryStatus=='12'}">审核通过(非作品类)</c:if>
-<c:if test="${entry.entryStatus=='13'}">审核通过(作品类)</c:if>
+<c:if test="${entry.entryStatus=='13'}">审核通过(作品类)，待提交作品</c:if>
 <c:if test="${entry.entryStatus=='14'}">作品已提交</c:if>
 <c:if test="${entry.entryStatus=='15'}">成绩已出，结束</c:if>
 <c:if test="${entry.entryStatus=='404'}">未参赛</c:if>

@@ -134,4 +134,36 @@ public class EntryServiceImpl implements EntryService {
         criteria.andEntryStatusIn(entryStatusList);
         return transformToEntryCustomList(entryMapper.selectByExample(entryExample));
     }
+
+    @Override
+    public List<EntryCustom> getEntryByCidNotInSta(Integer compId, String entryStatus1, String entryStatus2) {
+        EntryExample entryExample = new EntryExample();
+        EntryExample.Criteria criteria = entryExample.createCriteria();
+        criteria.andCompIdEqualTo(compId);
+        List<String> entryStatusList = new ArrayList<>();
+        entryStatusList.add(entryStatus1);
+        entryStatusList.add(entryStatus2);
+        criteria.andEntryStatusNotIn(entryStatusList);
+        return transformToEntryCustomList(entryMapper.selectByExample(entryExample));
+    }
+
+    @Override
+    public void changeStaToStaEntryByCid(Integer compId, String entryStatus1, String entryStatus2) {
+        Entry entry = new Entry();
+        entry.setEntryStatus(entryStatus2);
+        EntryExample entryExample = new EntryExample();
+        EntryExample.Criteria criteria = entryExample.createCriteria();
+        criteria.andCompIdEqualTo(compId);
+        criteria.andEntryStatusEqualTo(entryStatus1);
+        entryMapper.updateByExampleSelective(entry,entryExample);
+    }
+
+    @Override
+    public void giveScoreByEid(Integer entryId, String score) {
+        Entry entry = new Entry();
+        entry.setEntryId(entryId);
+        entry.setScore(score);
+        entryMapper.updateByPrimaryKeySelective(entry);
+    }
+
 }

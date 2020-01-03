@@ -39,30 +39,6 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 
-    /*function goto(){
-        if (${competition.competitionExtCustomList[0].compId == null}) {
-            switch (${competition.isPer}) {
-                case 1:
-                    $("#myForm").prop("action","${pageContext.request.contextPath}/toJoiningComp")
-                    break;
-                case 2:
-                    $("#myForm").prop("action","${pageContext.request.contextPath}/toJoinCompStep3")
-                    break;
-                case 3:
-                    if($("#perRadio").prop("checked") == true){
-                        $("#myForm").prop("action","${pageContext.request.contextPath}/toJoiningComp")
-                    }
-                    else {
-                        $("#myForm").prop("action","${pageContext.request.contextPath}/toJoinCompStep3")
-                    }
-            }
-            $("#myForm").submit()
-        }
-        else{
-            $("#myForm").submit()
-        }
-    };*/
-
     $(function () {
         $("#teamRadio").change(function () {
             if ($("#teamRadio").prop("checked") == true){
