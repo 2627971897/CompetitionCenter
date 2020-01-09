@@ -13,7 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class StudentController {
@@ -33,6 +36,9 @@ public class StudentController {
     @Autowired
     private EntrySlaService entrySlaService;
 
+    @Autowired
+    private ProColService proColService;
+
     // 学生登录
     @RequestMapping("/sLogin")
     public String sLogin(LoginTemp loginTemp, HttpServletRequest request, HttpSession session){
@@ -49,6 +55,12 @@ public class StudentController {
             session.setAttribute("student",studentCustom);
             return "student/studentIndex";
         }
+    }
+
+    // 去首页
+    @RequestMapping("/toStIndex")
+    public String toStIndex(){
+        return "student/studentIndex";
     }
 
     // 查看所有报名中的比赛
@@ -178,6 +190,29 @@ public class StudentController {
     // 提交作品
     @RequestMapping("/upload")
     public String upload(Integer entryId, MultipartFile file, HttpSession session){
+
+        // 将文件保存在该目录下
+        File saveDir = new File("/neuedu/jianhao/doc");
+        //File saveDir = new File("D://mySave1");
+        // 如果不存在，创建该目录
+        if (!saveDir.exists()){
+            saveDir.mkdir();
+        }
+        String originalName = file.getOriginalFilename();
+        String newName = UUID.randomUUID().toString().replaceAll("-","") + originalName.substring(originalName.lastIndexOf("."));
+        File newFile = new File(saveDir,newName);
+        try {
+            // 将文件写入到磁盘中
+            file.transferTo(newFile);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        String proLink = "jianhao/doc/" + newName;
+
+        // 写入数据库
+        proColService.addProColByEid(entryId,originalName,proLink);
+
         entryService.changeStaEntryByEid(entryId,"14");
         StudentCustom studentCustom = (StudentCustom) session.getAttribute("student");
         return "redirect:toStMyCompetition?studentId=" + studentCustom.getStudentId();

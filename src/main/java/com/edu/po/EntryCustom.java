@@ -9,6 +9,8 @@ public class EntryCustom extends Entry {
 
     private String compName;
 
+    private ProColCustom proColCustom;
+
     private List<EntryExtCustom> entryExtCustomList;
 
     private List<EntrySlaCustom> entrySlaCustomList;
@@ -51,5 +53,13 @@ public class EntryCustom extends Entry {
 
     public void setIsPro(String isPro) {
         this.isPro = isPro;
+    }
+
+    public ProColCustom getProColCustom() {
+        return proColCustom;
+    }
+
+    public void setProColCustom(ProColCustom proColCustom) {
+        this.proColCustom = proColCustom;
     }
 }

@@ -50,7 +50,7 @@
 ========================================================<br>
 ======================== 提 交 作 品 ========================<br>
 ========================================================<br>
-<form method="post" action="${pageContext.request.contextPath}/upload">
+<form method="post" action="${pageContext.request.contextPath}/upload" enctype="multipart/form-data">
     <input type="hidden" name="entryId" value="${entry.entryId}">
     <input type="file" name="file">
     <input type="submit" value="提交作品">

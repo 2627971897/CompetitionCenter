@@ -29,6 +29,9 @@ public class EntryServiceImpl implements EntryService {
     @Autowired
     private EntrySlaService entrySlaService;
 
+    @Autowired
+    private ProColService proColService;
+
     // 将 Entry 类型转换成 EntryCustom 类型
     public EntryCustom transformToEntryCustom(Entry entry) {
         EntryCustom entryCustom = new EntryCustom();
@@ -56,6 +59,11 @@ public class EntryServiceImpl implements EntryService {
 
             List<EntrySlaCustom> entrySlaCustomList = entrySlaService.getEntrySlaByEid(entry.getEntryId());
             entryCustom.setEntrySlaCustomList(entrySlaCustomList);
+
+            List<ProColCustom> proColCustomList = proColService.getProColByEid(entry.getEntryId());
+            if (proColCustomList.size()>0){
+                entryCustom.setProColCustom(proColCustomList.get(0));
+            }
         }
 
         return entryCustom;
