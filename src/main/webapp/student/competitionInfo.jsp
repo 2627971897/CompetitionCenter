@@ -111,7 +111,7 @@
                                                                         正在报名中...
                                                                     </c:if>
                                                                     <c:if test="${competition.compStatus=='4'}">
-                                                                        报名截止
+                                                                        报名截止，待比赛截止
                                                                     </c:if>
                                                                     <c:if test="${competition.compStatus=='5'}">
                                                                         比赛截止，待录入成绩

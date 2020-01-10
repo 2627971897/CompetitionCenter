@@ -126,16 +126,14 @@ public class StudentController {
             }
             else {
                 entryService.changeStaEntryByEid(entryCustom1.getEntryId(),"11");
-
-                StudentCustom studentCustom = (StudentCustom) session.getAttribute("student");
-                return "redirect:toStMyCompetition?studentId=" + studentCustom.getStudentId();
+                return "redirect:toStMyCompetition";
             }
         }
     }
 
     // Step2完成
     @RequestMapping("/step2Finish")
-    public String step2Finish(EntryExtQueryVo entryExtQueryVo,HttpServletRequest request,HttpSession session){
+    public String step2Finish(EntryExtQueryVo entryExtQueryVo,HttpServletRequest request){
         entryExtService.addEntryExtAll(entryExtQueryVo);
         EntryCustom entryCustom = entryService.getEntryByEid(entryExtQueryVo.getEntryExtCustomList().get(0).getEntryId());
         CompetitionCustom competitionCustom = competitionService.getCompByCid(entryCustom.getCompId());
@@ -148,25 +146,24 @@ public class StudentController {
         else {
             entryService.changeStaEntryByEid(entryCustom.getEntryId(),"11");
 
-            StudentCustom studentCustom = (StudentCustom) session.getAttribute("student");
-            return "redirect:toStMyCompetition?studentId=" + studentCustom.getStudentId();
+            return "redirect:toStMyCompetition";
         }
     }
 
     // Step3完成
     @RequestMapping("/step3Finish")
-    public String step3Finish(EntrySlaQueryVo entrySlaQueryVo,HttpSession session){
+    public String step3Finish(EntrySlaQueryVo entrySlaQueryVo){
         entrySlaService.addEntrySalAll(entrySlaQueryVo);
         entryService.changeStaEntryByEid(entrySlaQueryVo.getEntrySlaCustomList().get(0).getEntryId(),"11");
 
-        StudentCustom studentCustom = (StudentCustom) session.getAttribute("student");
-        return "redirect:toStMyCompetition?studentId=" + studentCustom.getStudentId();
+        return "redirect:toStMyCompetition";
     }
 
     // 获取所有报名过的比赛
     @RequestMapping("/toStMyCompetition")
-    public String toStMyCompetition(String studentId,HttpServletRequest request){
-        List<EntryCustom> entryCustomList = entryService.getEntryAllBySid(studentId);
+    public String toStMyCompetition(HttpServletRequest request,HttpSession session){
+        StudentCustom studentCustom = (StudentCustom) session.getAttribute("student");
+        List<EntryCustom> entryCustomList = entryService.getEntryAllBySid(studentCustom.getStudentId());
         request.setAttribute("entryList",entryCustomList);
         return "/student/myCompetition";
     }
@@ -189,7 +186,7 @@ public class StudentController {
 
     // 提交作品
     @RequestMapping("/upload")
-    public String upload(Integer entryId, MultipartFile file, HttpSession session){
+    public String upload(Integer entryId, MultipartFile file){
 
         // 将文件保存在该目录下
         File saveDir = new File("/neuedu/jianhao/doc");
@@ -214,7 +211,6 @@ public class StudentController {
         proColService.addProColByEid(entryId,originalName,proLink);
 
         entryService.changeStaEntryByEid(entryId,"14");
-        StudentCustom studentCustom = (StudentCustom) session.getAttribute("student");
-        return "redirect:toStMyCompetition?studentId=" + studentCustom.getStudentId();
+        return "redirect:toStMyCompetition";
     }
 }

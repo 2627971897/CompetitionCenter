@@ -33,7 +33,7 @@
     <div class="nano">
         <div class="nano-content">
             <ul>
-                <div class="logo"><a href="${pageContext.request.contextPath}/toStIndex"><!-- <img src="${pageContext.request.contextPath}/assets/images/logo.png" alt="" /> --><span>竞赛系统</span></a></div>
+                <div class="logo"><a href="${pageContext.request.contextPath}/toStIndex"><!-- <img src="${pageContext.request.contextPath}/assets/images/logo.png" alt="" /> --><span>学生竞赛系统</span></a></div>
                 <li class="label">首页</li>
                 <li><a class="sidebar-sub-toggle"><i class="ti-home"></i>首页<span class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
@@ -42,7 +42,7 @@
                 </li>
 
                 <li class="label">操作</li>
-                <li><a href="${pageContext.request.contextPath}/toStMyCompetition?studentId=${student.studentId}" target="iframe_pro"><i class="ti-user"></i> 我参加的比赛</a></li>
+                <li><a href="${pageContext.request.contextPath}/toStMyCompetition" target="iframe_pro"><i class="ti-user"></i> 我参加的比赛</a></li>
                 <li><a href="${pageContext.request.contextPath}/toJoiningComp" target="iframe_pro"><i class="ti-layout-grid2-alt"></i> 快去参加比赛</a></li>
 
                 <li><a><i class="ti-close"></i>退出登录</a></li>
@@ -79,36 +79,6 @@
                                                 <div class="notification-content">
                                                     <small class="notification-timestamp pull-right">02:34 PM</small>
                                                     <div class="notification-heading">Mr. John</div>
-                                                    <div class="notification-text">5 members joined today </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img" src="${pageContext.request.contextPath}/assets/images/avatar/3.jpg" alt="" />
-                                                <div class="notification-content">
-                                                    <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                    <div class="notification-heading">Mariam</div>
-                                                    <div class="notification-text">likes a photo of you</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img" src="${pageContext.request.contextPath}/assets/images/avatar/3.jpg" alt="" />
-                                                <div class="notification-content">
-                                                    <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                    <div class="notification-heading">Tasnim</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img" src="${pageContext.request.contextPath}/assets/images/avatar/3.jpg" alt="" />
-                                                <div class="notification-content">
-                                                    <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                    <div class="notification-heading">Mr. John</div>
                                                     <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
                                                 </div>
                                             </a>
@@ -133,36 +103,6 @@
                                 </div>
                                 <div class="dropdown-content-body">
                                     <ul>
-                                        <li class="notification-unread">
-                                            <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img" src="${pageContext.request.contextPath}/assets/images/avatar/1.jpg" alt="" />
-                                                <div class="notification-content">
-                                                    <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                    <div class="notification-heading">Michael Qin</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="notification-unread">
-                                            <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img" src="${pageContext.request.contextPath}/assets/images/avatar/2.jpg" alt="" />
-                                                <div class="notification-content">
-                                                    <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                    <div class="notification-heading">Mr. John</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <img class="pull-left m-r-10 avatar-img" src="${pageContext.request.contextPath}/assets/images/avatar/3.jpg" alt="" />
-                                                <div class="notification-content">
-                                                    <small class="notification-timestamp pull-right">02:34 PM</small>
-                                                    <div class="notification-heading">Michael Qin</div>
-                                                    <div class="notification-text">Hi Teddy, Just wanted to let you ...</div>
-                                                </div>
-                                            </a>
-                                        </li>
                                         <li>
                                             <a href="#">
                                                 <img class="pull-left m-r-10 avatar-img" src="${pageContext.request.contextPath}/assets/images/avatar/2.jpg" alt="" />
@@ -240,7 +180,7 @@
 
 <div class="content-wrap">
     <div class="main" style="height: 650px">
-        <iframe class="scroll" name="iframe_pro" id="ghrzFrame" src="${pageContext.request.contextPath}/toJoiningComp" height="100%" width="100%">
+        <iframe class="scroll" name="iframe_pro" id="ghrzFrame" src="${pageContext.request.contextPath}/toStMyCompetition" height="100%" width="100%">
 
         </iframe>
     </div>

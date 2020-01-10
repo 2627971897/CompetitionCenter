@@ -70,6 +70,12 @@ public class TeacherController {
         }
     }
 
+    // 去首页
+    @RequestMapping("/toTeIndex")
+    public String toTeIndex(){
+        return "teacher/teacherIndex";
+    }
+
     // 去我的比赛
     @RequestMapping("/toMyCompetition")
     public String tMyCompetition(HttpSession session,HttpServletRequest request){
@@ -88,11 +94,11 @@ public class TeacherController {
     // 申请比赛
     @RequestMapping("/applyCompetition")
     public String applyCompetition(
-            CompetitionCustom competitionCustom,HttpServletRequest request,HttpSession session){
+            CompetitionCustom competitionCustom,HttpSession session){
         TeacherCustom teacherCustom = (TeacherCustom) session.getAttribute("teacher");
         competitionCustom.setTeacherId(teacherCustom.getTeacherId());
         competitionService.addCompetition(competitionCustom);
-        return "teacher/teacherIndex";
+        return "redirect:toMyCompetition";
     }
 
     // 去发布报名信息
@@ -109,8 +115,7 @@ public class TeacherController {
     @RequestMapping("/releaseCompByCid")
     public String releaseCompByCid(@RequestParam(value = "grade", required = false) String[] grades,
                                    @RequestParam(value = "myExtend", required = false) String[] myExtends,
-                                   Integer compId, Integer deptId,
-                                   HttpServletRequest request, HttpSession session){
+                                   Integer compId, Integer deptId){
         if (grades.length >= 5){
             competitionScopeService.addCompScopeByCidVal(compId,"9");
         }
@@ -253,6 +258,7 @@ public class TeacherController {
     @RequestMapping("/toStopSignByCid")
     public String toStopSignByCid(Integer compId){
         competitionService.changeStaCompByCid(compId,"4");
+        entryService.changeStaToStaEntryByCid(compId,"11","911");
         return "redirect:toMyCompetition";
     }
 

@@ -80,12 +80,12 @@
                                                     <c:if test="${entry.entryStatus=='2'}"><span class="badge badge-primary">待填扩展信息</span></c:if>
                                                     <c:if test="${entry.entryStatus=='3'}"><span class="badge badge-primary">待填成员信息</span></c:if>
                                                     <c:if test="${entry.entryStatus=='11'}"><span class="badge badge-primary">待审核</span></c:if>
-                                                    <c:if test="${entry.entryStatus=='12'}"><span class="badge badge-primary">审核通过(非作品类)，待出分</span></c:if>
-                                                    <c:if test="${entry.entryStatus=='13'}">审核通过(作品类)=<a style="color: #ff4081" href="${pageContext.request.contextPath}/toUpload?entryId=${entry.entryId}">提交作品</a></c:if>
-                                                    <c:if test="${entry.entryStatus=='14'}"><span class="badge badge-primary">作品已提交，待出分</span></c:if>
-                                                    <c:if test="${entry.entryStatus=='15'}"><span class="badge badge-primary">成绩已出，结束</span></c:if>
-                                                    <c:if test="${entry.entryStatus=='404'}"><span class="badge badge-primary">未参赛</span></c:if>
-                                                    <c:if test="${entry.entryStatus=='911'}"><span class="badge badge-primary">审核未通过</span></c:if>
+                                                    <c:if test="${entry.entryStatus=='12'}"><span class="badge badge-success">审核通过(非作品类)，待出分</span></c:if>
+                                                    <c:if test="${entry.entryStatus=='13'}">审核通过(作品类)，待<a style="color: #ff4081" href="${pageContext.request.contextPath}/toUpload?entryId=${entry.entryId}">提交作品</a></c:if>
+                                                    <c:if test="${entry.entryStatus=='14'}"><span class="badge badge-success">作品已提交，待出分</span></c:if>
+                                                    <c:if test="${entry.entryStatus=='15'}"><span class="badge badge-dark">成绩已出，结束</span></c:if>
+                                                    <c:if test="${entry.entryStatus=='404'}"><span class="badge badge-danger">未参赛</span></c:if>
+                                                    <c:if test="${entry.entryStatus=='911'}"><span class="badge badge-warning">审核未通过</span></c:if>
                                                 </td>
                                                 <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:SS" value="${entry.entryDate}" /></td>
                                                 <td class="color-primary">${entry.phone}</td>

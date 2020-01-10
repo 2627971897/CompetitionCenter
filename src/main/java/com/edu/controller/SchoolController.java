@@ -40,6 +40,13 @@ public class SchoolController {
             return "school/schoolIndex";
         }
     }
+
+    // 去首页
+    @RequestMapping("/toScIndex")
+    public String toScIndex(){
+        return "school/schoolIndex";
+    }
+
     // 管理查看所有比赛
     @RequestMapping("/toAllCompetition")
     public String toAllCompetition(HttpSession session,HttpServletRequest request){
