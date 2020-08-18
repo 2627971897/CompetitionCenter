@@ -51,7 +51,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-hover ">
+                                    <table class="table table-hover " id="ExTable">
                                         <thead>
                                         <tr>
                                             <th>ID</th>
@@ -65,7 +65,7 @@
                                             <th>分数</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="tbody">
                                         <c:forEach items="${entryList}" var="entry">
                                             <tr>
                                                 <th scope="row"><a style="color: #ff4081" href="${pageContext.request.contextPath}/toEntryInfo?entryId=${entry.entryId}">${entry.entryId}</a></th>
@@ -89,7 +89,9 @@
                                         </c:forEach>
                                         </tbody>
                                     </table>
-                                    <button style="margin-top: 10px" type="button" class="btn btn-dark m-b-10 m-l-5" onclick="myFinish()">导出成绩单</button>
+                                    <button style="margin-top: 10px" type="button" class="btn btn-dark m-b-10 m-l-5" onclick="tableToExcel()">导出成绩单</button><br>
+                                    <button style="margin-top: 10px" type="button" class="btn btn-default m-b-10 m-l-5" onclick="bing()">查看作品提交情况</button><br>
+                                    <button style="margin-top: 10px" type="button" class="btn btn-default m-b-10 m-l-5" onclick="tiao()">查看各学院报名人数</button>
                                 </div>
                             </div>
                         </div>
@@ -119,9 +121,23 @@
 
 
 </body>
+<script src="${pageContext.request.contextPath}/js/jquery.table2excel.js"></script>
 <script type="text/javascript">
-    function myFinish() {
-        alert("可惜！还没想好怎么开发 =v= !");
+    function tableToExcel() {
+        $("#ExTable").table2excel({
+            exclude  : ".noExl",                                       //过滤位置的 css 类名
+            filename : "Excel" + new Date().getTime(),        //文件名称
+            name: "Excel Document Name.xlsx",
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: true
+        });
+    }
+    function bing() {
+        window.location.href = "${pageContext.request.contextPath}/bing.html";
+    }
+    function tiao() {
+        window.location.href = "${pageContext.request.contextPath}/tiao.html";
     }
 </script>
 </html>

@@ -189,7 +189,7 @@ public class StudentController {
     public String upload(Integer entryId, MultipartFile file){
 
         // 将文件保存在该目录下
-        File saveDir = new File("/neuedu/jianhao/doc");
+        File saveDir = new File("/root/myNginx/doc");
         //File saveDir = new File("D://mySave1");
         // 如果不存在，创建该目录
         if (!saveDir.exists()){
@@ -205,7 +205,7 @@ public class StudentController {
             e.printStackTrace();
         }
 
-        String proLink = "jianhao/doc/" + newName;
+        String proLink = "doc/" + newName;
 
         // 写入数据库
         proColService.addProColByEid(entryId,originalName,proLink);
