@@ -9,7 +9,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    String picRootPath = "http://39.96.42.146/";
+    String picRootPath = "http://62.234.125.134/";
 %>
 <html lang="ch">
 <head>
